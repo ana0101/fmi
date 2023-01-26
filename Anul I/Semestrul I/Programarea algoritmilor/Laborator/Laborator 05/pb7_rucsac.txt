@@ -1,0 +1,8 @@
+Castig maxim: 134.0
+
+Obiectele incarcate: 
+Obiect 2: 100.0%
+Obiect 1: 100.0%
+Obiect 3: 100.0%
+Obiect 5: 100.0%
+Obiect 7: 60.0%
