@@ -1,0 +1,23 @@
+esp = 0xffff2022
+0xffdf8d3a
+
+0xffff2022 - 0xffdf8d3a = 0x1f92e8 = 2069224 bytes pentru stiva
+
+stiva: x, adresa retur, ebp vechi, ebx => 4*4 = 16 bytes
+
+la fiecare autoapel se mai adauga inca 16 bytes pe stiva
+
+k = nr autoapeluri
+
+pentru segmentation fault trebuie se iesim din zona de memorie in care avem drepturi
+trebuie sa folosim mai mult decat cei 2069224 bytes pentru stiva
+
+16(k+1) > 2069224
+k+1 > 517306
+k > 517305
+
+pentru un minim sigur de k autoapeluri putem alege x = 2^k
+(presupunem cazul cel mai rau in care merge doar pe f(x/2))
+
+x = 2^517306
+

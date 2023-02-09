@@ -1,0 +1,20 @@
+a) 2 argumente
+5. 58a: 8b 45 08 mov 0x8(%ebp),%eax
+15. 5a2: 8b 45 0c mov 0xc(%ebp),%eax
+
+b) daca eax nu este zero
+in eax se afla mai intai primul argument, 8(%ebp),
+apoi se face and cu $0x1, si in eax ramane 1 daca numarul este impar
+si zero daca numarul este par
+deci se sare daca numarul este impar
+
+c) Da, al doilea argument este un pointer. Observam ca avem mov 0xc(%ebp), %eax
+la linia 15, iar la linia 17 se preia continutul de memorie indicat de %eax. Analog si la liniile
+20 si 22.
+
+d) nu pt ca inainte de finalul functiei in eax se afla valoarea, nu pointerul
+22. 5b4: 0f b6 00 movzbl (%eax),%eax
+
+e) primul este long
+al doilea este un pointer si pt ca are elemente de un byte, este pointer
+catre un char, deci char*
