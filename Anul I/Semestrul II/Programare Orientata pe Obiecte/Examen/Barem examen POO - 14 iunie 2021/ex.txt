@@ -1,0 +1,105 @@
+Exercitiul 1
+
+var 1
+class C {
+    int c;
+public:  
+    C(int p = 1) {c = p;}
+    int& get() const {return c;}
+};
+
+int f(C op) {return op.get();}
+
+int main() {
+    C o1;
+    int x = f(o1);
+    return 0;
+}
+
+
+var 2
+class C {
+    int c;
+public:  
+    C(int p = 1) {c = p;}
+    const int& get() {return c;}
+};
+
+int f(const C* op) {return op->get();}
+ 
+int main() {
+    C o1;
+    int x = f(&o1);
+    return 0;
+}
+
+
+var 3
+class C {
+    int c;
+public:  
+    C(int p = 1) {c = p;}
+    const int& get() {return c;}
+};
+
+int f(const C& op) {return op.get();}
+
+int main(){
+    C o1;
+    int x = f(o1);
+    return 0;
+}
+
+
+var 4
+class C {
+    int c;
+public:  
+    C(int p = 1){c = p;}
+    const int& get() const {return c++;}
+};
+
+int main() {
+    const C o1;
+    int x = o1.get();
+    return 0;
+}
+
+
+var 5
+class C {
+    int c;
+public:  
+    C(int p = 1) {c = p;}
+    const int& get() {return c;}
+};
+
+int f(const C op) {return op.get();}
+
+int main() {
+    C o1;
+    int x = f(o1);
+    return 0;
+}
+
+------------------------------------------------------
+
+Exercitiul 2
+
+var 1
+class B {
+public: 
+virtual B * fv(){return this;}
+        int adun(int p){return p+1;}
+};
+class D:public B{
+public: virtual D * fv(){return this;}
+        int adun (int p){return p+2;}
+};
+int main(){
+B *p =new D;
+int x=p->fv()->adun(1);
+return 0;
+}
+
+
