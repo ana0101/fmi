@@ -1,0 +1,61 @@
+.container {
+    height: 50vh;
+    width: 250px;
+    border-style: dotted;
+    border-color: blue;
+    display: grid;
+    grid-template-areas: 
+        '. g2 g5'
+        'g1 g3 g5'
+        '. g4 g5';
+}
+
+#div1 {
+    grid-area: g1;
+    transition: font-size 3s;
+}
+#div2 {
+    grid-area: g2;
+    transition: font-size 3s;
+}
+#div3 {
+    grid-area: g3;
+    transition: font-size 3s;
+}
+#div4 {
+    grid-area: g4;
+    transition: font-size 3s;
+}
+#div5 {
+    grid-area: g5;
+    transition: font-size 3s;
+}
+
+#div1, #div2, #div3, #div4, #div5 {
+    border-style: double;
+    border-color: black;
+    border-width: 8px;
+    font-size: 15px;
+}
+
+@media only screen and (max-width: 600px) and (max-height: 500px) {
+    .container {
+        display: block;
+    }
+
+    #div1:hover {
+        font-size: 30px;
+    }
+    #div2:hover {
+        font-size: 30px;
+    }
+    #div3:hover {
+        font-size: 30px;
+    }
+    #div4:hover {
+        font-size: 30px;
+    }
+    #div5:hover {
+        font-size: 30px;
+    }
+}

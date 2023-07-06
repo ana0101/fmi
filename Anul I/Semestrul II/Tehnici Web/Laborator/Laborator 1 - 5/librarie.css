@@ -1,0 +1,265 @@
+body{
+    font-size: 17px;
+    color: rgb(255, 255, 255);
+    background-color: black;
+    padding: 0;
+    margin: 0;
+}
+
+header{
+    height: 150px;
+    line-height: 150px;
+    background-color: rgb(27, 5, 91);
+    margin: 0;
+}
+
+header>h1{
+    font-family: "Open Sans";
+    font-weight: 900;
+    text-align: center;
+    font-size: 34px;
+    padding: 58px 0;
+    padding: 0;
+    margin: 0;
+}
+
+header>h1>span{
+    text-transform: uppercase;
+    font-style: italic;
+    color: rgb(149, 65, 222);
+}
+
+header>img{
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 150px;
+    transition: transform 3s;
+}
+
+header>img:hover{
+    transform: rotate(30deg);
+}
+
+
+#meniu{
+    width: fit-content;
+    padding: 10px;
+}
+
+nav a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color:rgb(205, 22, 120);
+    background-color: rgb(39, 11, 116);
+    font-family: 'Courier New', Courier, monospace;
+    height: 50px;
+    text-decoration: none;
+    border-style: solid;
+}
+
+ul li a:hover{
+    background-color: rgb(5, 5, 87);
+}
+
+.dropdown-content{
+    display: none;
+    width: 100%;
+    position: relative;
+}
+
+.dropdown:hover .dropdown-content{
+    display: flex;
+    margin-top: 2px;
+    margin-bottom: 10px;
+    padding: 0;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+nav ul{
+    list-style: none;
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding: 10px;
+}
+
+nav ul li{
+    position: relative;
+    width: 100%;
+    text-align: center;
+}
+
+.dropdown-content2{
+    display: none;
+    width: 100%;
+    position: relative;
+}
+
+.dropdown2:hover .dropdown-content2{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    text-align: center;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 10px;
+}
+
+
+#container{
+    display: grid;
+    grid-gap: 5px;
+    grid-template-areas: 
+        "bine bine bine bine bine"
+        "noutati noutati noutati noutati anunturi"
+        "noutati noutati noutati noutati orar"
+        "galerie galerie galerie galerie galerie";
+}
+
+
+section{
+    border-style: dotted;
+    background: rgba(18, 224, 124, 0);
+}
+
+#bine{
+    grid-area: bine;
+    padding: 10px;
+}
+
+h2{
+    color:blueviolet;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+#bine>p>q{
+    transition: color 3s;
+}
+
+#bine>p>q:hover{
+    color: blueviolet;
+}
+
+#noutati{
+    grid-area: noutati;
+    padding: 10px;
+}
+
+#noutati p{
+    box-shadow: green;
+    text-shadow: red;
+}
+
+#noutati img{
+    float: left;
+    margin-right: 30px;
+}
+
+
+#anunturi{
+    grid-area: anunturi;
+    padding: 10px;
+}
+
+#anunturi>p::after{
+    content: "😀";
+}
+
+
+#orar{
+    grid-area: orar;
+    padding: 10px;
+}
+
+#orar>table,th,td{
+    border: 1px solid rgb(210, 221, 245);
+    border-collapse: collapse;
+    text-align: center;
+    padding: 0.5rem;
+}
+
+#orar>table span{
+    text-decoration: underline;
+}
+
+tr:hover{
+    font-style: italic;
+}
+
+
+#galerie{
+    grid-area: galerie;
+    padding: 10px;
+}
+
+#container_galerie{
+    display: grid;
+    grid-template-areas: 
+        "fig1 fig2 fig3"
+        "fig4 fig5 fig6 ";
+    padding: 10px;
+}
+
+figure{
+    text-align: center;
+}
+
+#fig1{
+    grid-area: fig1;
+}
+#fig2{
+    grid-area: fig2;
+}
+#fig3{
+    grid-area: fig3;
+}
+#fig4{
+    grid-area: fig4;
+}
+#fig5{
+    grid-area: fig5;
+}
+#fig6{
+    grid-area: fig6;
+}
+
+@keyframes aparitie{
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+figure>img{
+    opacity: 0;
+    animation-name: aparitie;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+}
+
+figure>img:nth-child(1){
+    animation-delay: 0.5s;
+}
+
+
+footer{
+    height: 5rem;
+    background-color: rgb(26, 4, 56);
+    line-height: 2.5rem;
+    padding: 10px;
+}
+
+footer>a:hover{
+    font-size: 20px;
+}
+
+footer>a:active{
+    background-color: yellow;
+}
+
+.stil {
+    color:rgb(128, 159, 226);
+}

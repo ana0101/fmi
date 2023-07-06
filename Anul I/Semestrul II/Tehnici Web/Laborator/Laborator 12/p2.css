@@ -1,0 +1,13 @@
+.dreptunghi {
+    border-style: ridge;
+    border-color: black;
+    width: 100px;
+    height: 100px;
+    background-color: aquamarine;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+body {
+    height: 100vh;
+}

@@ -1,0 +1,7 @@
+.patrat {
+    border-style: ridge;
+    border-color: blueviolet;
+    height: 100px;
+    width: 100px;
+    background-color: rgb(168, 242, 168);
+}

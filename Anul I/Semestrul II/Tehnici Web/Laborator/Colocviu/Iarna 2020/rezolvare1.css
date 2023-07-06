@@ -1,0 +1,43 @@
+p:not([title]) {
+    background-color: rgb(171, 246, 171);
+}
+
+.c1>b:nth-of-type(odd), .c2>b:nth-of-type(odd) {
+    text-decoration: underline;
+}
+
+div:last-of-type ~ p::before {
+    content: "final";
+    color: red;
+    font-size: 2.5em;
+}
+
+div *:hover {
+    border-style: dotted;
+    border-color: green;
+    border-width: 2px;
+}
+
+/* p:not([title])
+{
+	background-color: rgb(185, 246, 185);
+}
+
+.c1 > b:nth-child(odd), .c2 > b:nth-child(odd)
+{
+	text-decoration: underline;
+}
+
+div:last-of-type ~ p:before
+{
+	content: "final";
+	color: red;
+	font-size: 2.5em;
+}
+
+div *:hover
+{
+	border-color: green;
+	border-style: dotted;
+	border-width: 2px;
+} */

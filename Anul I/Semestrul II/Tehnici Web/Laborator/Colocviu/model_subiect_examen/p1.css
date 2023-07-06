@@ -1,0 +1,80 @@
+#container {
+    display: grid;
+}
+
+.patrat:nth-of-type(1) {
+    grid-area: g1;
+}
+.patrat:nth-of-type(2) {
+    grid-area: g2;
+}
+.patrat:nth-of-type(3) {
+    grid-area: g3;
+}
+.patrat:nth-of-type(4) {
+    grid-area: g4;
+}
+.patrat:nth-of-type(5) {
+    grid-area: g5;
+}
+
+
+@media only screen and (min-width: 800px) {
+    #container {
+        margin: auto;
+        height: 500px;
+        width: 500px;
+        background-color: rgb(106, 249, 106);
+        border-style: ridge;
+        border-color: black;
+        border-width: 1px;
+        grid-template-areas: 'g1 g2 g3 g4 g5';
+    }
+
+    .patrat:nth-of-type(even) {
+        border-color: red;
+        border-style: ridge;
+    }
+
+    .patrat:nth-of-type(odd) {
+        border-color: blue;
+        border-style: ridge;
+    }
+}
+
+
+@media only screen and (max-width: 800px) {
+    #container {
+        margin: auto;
+        height: 500px;
+        border-style: ridge;
+        border-color: black;
+        border-width: 1px;
+        width: 50%;
+        animation-name: animatie;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate-reverse;
+        grid-template-areas: 
+            'g1'
+            'g2'
+            'g3'
+            'g4'
+            'g5';
+    }
+
+    .patrat:nth-of-type(even) {
+        border-color: red;
+        border-style: ridge;
+    }
+
+    .patrat:nth-of-type(odd) {
+        border-color: blue;
+        border-style: ridge;
+    }
+}
+
+@keyframes animatie {
+    from {background-color: yellow;}
+    to {background-color: white;}
+}
