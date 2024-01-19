@@ -1,4 +1,6 @@
 *.exe
+*.in
+*.out
 *.vscode
 *node_modules
 package.json
