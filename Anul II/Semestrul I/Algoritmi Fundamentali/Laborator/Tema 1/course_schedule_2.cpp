@@ -11,7 +11,6 @@ class Graph {
 public:
     Graph(int n, vector<vector<int>>& edges);
     bool topologicalSort();    // true is possible, false if not
-
     vector <int> getOrder() {return order;}
 };
 
