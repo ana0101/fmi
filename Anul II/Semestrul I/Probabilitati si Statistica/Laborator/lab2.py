@@ -42,18 +42,18 @@ for i in range(1, N+1):
 ph = nh / N
 print("Prob head masluit: ", ph)
 
-# # d
-# plt.xlim([0,N+1])
-# plt.ylim([0,1])
-# for i in range(1, N+1):
-#     plt.plot(i, v_prob_corect[i], marker="o", markersize=2, markeredgecolor="pink", markerfacecolor="pink")
-# plt.show()
+# d
+plt.xlim([0,N+1])
+plt.ylim([0,1])
+for i in range(1, N+1):
+    plt.plot(i, v_prob_corect[i], marker="o", markersize=2, markeredgecolor="pink", markerfacecolor="pink")
+plt.show()
 
-# plt.xlim([0,N+1])
-# plt.ylim([0,1])
-# for i in range(1, N+1):
-#     plt.plot(i, v_prob_masluit[i], marker="o", markersize=2, markeredgecolor="pink", markerfacecolor="pink")
-# plt.show()
+plt.xlim([0,N+1])
+plt.ylim([0,1])
+for i in range(1, N+1):
+    plt.plot(i, v_prob_masluit[i], marker="o", markersize=2, markeredgecolor="pink", markerfacecolor="pink")
+plt.show()
 
 
 # Ex 2
@@ -182,6 +182,3 @@ def prob_castig(zar1, p1, zar2, p2):
         if rez1 > rez2:
             fav += 1
     return fav / N
-
-
-
