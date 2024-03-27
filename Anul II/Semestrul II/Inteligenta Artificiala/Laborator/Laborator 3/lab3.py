@@ -1,3 +1,6 @@
+from queue import PriorityQueue
+import time
+
 class NodArbore:
     def __init__(self, informatie, g=0, h=0, parinte=None):
         self.informatie = informatie
@@ -7,7 +10,7 @@ class NodArbore:
         self.parinte = parinte
 
     def __str__(self):
-        return f"({self.informatie}, g: {self.g}, f: {self.f})"
+        return f"({self.informatie}, g:{self.g}, f:{self.f})"
 
     def __repr__(self):
         return "{}, ({})".format(str(self.informatie), " -> ".join([str(x) for x in self.drum_radacina()]))
@@ -73,6 +76,56 @@ def a_star_sol_multiple(graf, nsol=1):
         coada.sort()
 
 
+# 3
+def a_star_sol_multiple_pq(graf, nsol=1):
+    coada = PriorityQueue()
+    coada.put(NodArbore(graf.start))
+    while not coada.empty():
+        nod_curent = coada.get()
+        if graf.scop(nod_curent.informatie):
+            print(repr(nod_curent))
+            nsol -= 1
+            if nsol == 0:
+                return
+
+        l_succesori = graf.succesori(nod_curent)
+        for succesor in l_succesori:
+            coada.put(succesor)
+
+
+# 4
+def a_star_sol_multiple_2(graf, nsol=1):
+    coada = [(NodArbore(graf.start))]
+    while coada:
+        nod_curent = coada.pop(0)
+        if graf.scop(nod_curent.informatie):
+            print(repr(nod_curent))
+            nsol -= 1
+            if nsol == 0:
+                return
+
+        l_succesori = graf.succesori(nod_curent)
+        for succesor in l_succesori:
+            indice = bin_search(coada, succesor, 0, len(coada) - 1)
+            coada.insert(indice, succesor)
+
+
+def bin_search(lista_noduri, nod_nou, ls, ld):
+    if len(lista_noduri) == 0:
+        return 0
+    if ls == ld:
+        if nod_nou < lista_noduri[ls]:
+            return ls
+        else:
+            return ld + 1
+    else:
+        mij = (ls + ld) // 2
+        if nod_nou < lista_noduri[mij]:
+            return bin_search(lista_noduri, nod_nou, ls, mij)
+        else:
+            return bin_search(lista_noduri, nod_nou, mij + 1, ld)
+
+
 m = [
     [0, 3, 5, 10, 0, 0, 100],
     [0, 0, 0, 4, 0, 0, 0],
@@ -89,4 +142,20 @@ h = [0, 1, 6, 2, 0, 3, 0]
 
 
 graf = Graf(m, start, scopuri, h)
-a_star_sol_multiple(graf, nsol=6)
+
+start_time = time.time()
+a_star_sol_multiple(graf, nsol=3)
+end_time = time.time()
+print(end_time - start_time)
+print()
+
+start_time = time.time()
+a_star_sol_multiple_pq(graf, nsol=3)
+end_time = time.time()
+print(end_time - start_time)
+print()
+
+start_time = time.time()
+a_star_sol_multiple_2(graf, nsol=3)
+end_time = time.time()
+print(end_time - start_time)
