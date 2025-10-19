@@ -1,0 +1,37 @@
+Part 1
+Step 1
+a. show interfaces
+b. show interface serial 0/0/0
+c. 1) 209.165.200.225/30
+   2) 1544 Kbit
+d. 1) nu este
+   2) 000d.bd6c.7d01
+   3) 1000000 Kbit
+   
+Step 2
+a. show ip interface brief
+b. 1) R1 2, R2 2
+   2) R1 6, R2 2
+   3) Nu. 2 sunt GigabitEthernet, iar 4 sunt FastEthernet.
+      GigabitEthernet au BW-ul de 1000000 Kbit, 
+      FastEthernet au BW-ul de 100000 Kbit
+   
+Step 3
+a. show ip route
+b. 1) 1
+   2) 209.165.200.224/30
+   3) Nu il va trimite nicaieri
+   
+Part 2
+Step 3
+copy r st
+
+Part 3
+Step 1
+a. R1 3, R2 3
+   masca de retea
+   show interfaces
+b. 1) 3
+   2) 2
+   3) 5
+   4) da

@@ -1,0 +1,28 @@
+Part 1
+Step 2
+d. Web server-ul a returnat pagina web
+
+Step 3
+b. HTTP; 1. The HTTP client sends a HTTP request to the server.
+c. 80
+d. 192.168.1.254
+e. Layer 2: Ethernet II Header 0060.47CA.4DEE > > 0001.96A9.401D
+f. IP: SRC IP, DST IP, Layer 3;
+   TCP: SRC PORT, DST PORT, Layer 4
+   Host: www.osi.local, Layer 7
+h. SRC PORT si DST PORT, SRC IP si DST IP, si adresele MAC au fost schimbate
+i. HTTP/1.1 200
+j. 2 (OSI Model si Inbound PDU Details) pentru ca dispozitivul e receiver-ul
+
+Part 2
+Step 1
+b. DNS, ARP, TCP, HTTP
+d. www.osi.local 
+e. Web Client; 192.168.1.254 (adresa Web Serverului)
+f. 4. The TCP connection is successful.
+   5. The device sets the connection state to ESTABLISHED.
+g. 4. The device sets the connection state to CLOSED. (inchide conexiunea)
+
+Challenge
+Web Serverul asteapta requesturi web pe portul 80 (in primul HTTP PDU cerut de client, layer 4, DST port)
+Web Serverul asteapta requesturi DNS pe portul 53 (in primul DNS PDU cerut de client, layere 4, DST port)

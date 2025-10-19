@@ -1,0 +1,66 @@
+Step 1
+c 192.168.179.1
+
+Step 2
+192.168.11.1
+
+Step 3
+d
+IPv4: 86.121.175.126 
+location: Romania, Ilfov, Chiajna (nu e accurate)
+ISP: RCS & RDS S.A.
+
+Step 4
+a. wireless
+b. in sufragerie
+c. cu cablu de la comapanie de cablu, nu pot sa il gasesc pentru ca este montat in perete
+d. cablu, se duce in pamant
+e. 10.144.158.30
+
+Step 5
+c. 10.110.178.133
+d. rur02.monterev.ca.sfba.comcast.net
+GigabitEthernet0/0
+e. 10.139.198.129
+f. rur01.monterev.ca.sfba.comcast.net
+GigabitEthernet0/0
+g. sunt sursa pentru pachetele trimise la urmatoarea destinatie, deci nu sunt aratate
+h. 192.168.11.1, 10.0.0.1, 10.144.158.30, 10.220.187.207
+Dupa da request timed out
+
+Step 6
+a. Nu apare sau da request timed out
+d. 
+5. santaclara.ca.sfba.comcast.net GigabitEthernet 0/0 10.151.78.177
+6. sunnyvale.ca.ibone.comcast.net GigabitEthernet0/0 10.110.41.121
+7. sunnyvale.ca.ibone.comcast.net GigabitEthernet0/0 10.110.46.30
+8. 9greatoaks.ca.ibone.comcast.net GigabitEthernet0/0 10.110.37.178
+9. 9greatoaks.ca.ibone.comcast.net GigabitEthernet0/0 10.110.32.246
+e. greatoaks.calibone
+pe11.9greatoaks.ca.ibone.comcast.net
+GigabitEthernet1/0
+172.16.69.142
+
+Step 7
+d. GigabitEthernet0/0
+
+Step 8
+100 Gbit/s network backbone
+
+Step 9
+c. GigabitEthernet0/0
+
+Step 10
+a. 3
+b. SEA-US
+c. Makaha
+d. 4
+g. 50-100km
+i. GigabitEthernet0/0
+
+Step 11
+GigabitEthernet0/0
+
+Cred ca as fi un candidat potrivit pentru acest post pentru ca am cunostinte de OOP (C++, dar acum invat Java), de SQL si de algoritmi si structuri de date. 
+De asemenea, am niste experienta cu TypeScript dintr-un proiect in care am facut o aplicatie web la care am folosit TypeScript (in Angular) pentru frontend.
+Imi place sa invat continuu lucruri noi si imi doresc un job la care sa am posibilitatea sa invat si sa lucrez cu tehnologii noi.

@@ -1,0 +1,4 @@
+Part 2
+b. Configuratia stocata pe serverul TFTP a fost adusa pe router si
+hostname-ul a fost schimbat in RTA
+c. Nu

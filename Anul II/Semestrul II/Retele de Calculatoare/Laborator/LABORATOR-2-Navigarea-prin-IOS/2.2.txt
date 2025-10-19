@@ -1,0 +1,11 @@
+Part 1
+Step 3. Pot sa verific incercand sa accesez consola si modul privilegiat.
+Step 5. copy running-config startup-config
+
+Step 2
+b. Nu (request timed out) pentru ca switch-ul nu a fost configurat cu o adresa IP
+
+Part 3
+Step 1. No shutdown pune interfata intr-o stare activa (pentru a nu pierde munca)
+
+Step 4: copy running-config startup-config

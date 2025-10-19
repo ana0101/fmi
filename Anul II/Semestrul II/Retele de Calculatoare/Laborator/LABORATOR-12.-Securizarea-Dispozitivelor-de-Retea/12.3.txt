@@ -1,0 +1,5 @@
+Device     Gateway
+SW-1       192.168.1.1
+PC         192.168.1.1
+Laptop     192.168.1.1
+Remote PC  192.168.2.1

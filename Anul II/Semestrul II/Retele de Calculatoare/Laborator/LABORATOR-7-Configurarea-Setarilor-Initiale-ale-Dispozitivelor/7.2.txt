@@ -1,0 +1,30 @@
+Part 1
+Step 2
+b. Router
+   4
+   2
+   2
+   0-4
+c. Pentru ca fisierul de configurare nu este salvat in NVRAM, 
+se afla doar in RAM
+
+Part 2
+Step 2
+a. show running-config
+c. Fiecare router ar trebui sa aiba un mesaj al zilei pentru a avertiza
+persoanele neautorizate ca accesul este interzis sau pentru a transmite
+mesaje altor colegi, spre exemplu daca este planificata o oprire a server-ului
+   login
+d. Pentru ca daca ambele parole sunt setate, atunci cea secret o suprascrie 
+pe cealalta
+   Criptate deoarece comanda service password-encryption cripteaza toate parolele
+   
+Part 3
+Step 1
+a. copy r st
+   copy r st
+   
+Step 2
+a. 3
+   c1900-universalk9-mz.SPA.151-4.M4.bin
+   extensia .bin

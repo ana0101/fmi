@@ -1,0 +1,23 @@
+Part 1
+Step 1
+b. AUX si Console
+
+Step 2
+a. 2 LAN (Gigabit Ethernet) si 2 WAN
+b. 4
+c. gigabitethernet 0/0 BW 1000000 Kbit;
+   serial 0/0/0 BW 1544 Kbit
+   
+Step 3
+East - 1
+Switch 2 - 5
+
+Part 2
+Step 1
+a.
+1) HWIC-4ESW
+2) 4
+b. PT-SWITCH-NM-1FGE
+
+Step 2
+c. GigabitEthernet5/1

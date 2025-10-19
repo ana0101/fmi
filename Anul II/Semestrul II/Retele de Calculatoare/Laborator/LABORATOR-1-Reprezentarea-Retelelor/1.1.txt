@@ -1,0 +1,22 @@
+Part 1
+Step 1
+c. AUX si CONSOLE
+
+Step 2
+a. 2 interfete LAN (Gigabit Ethernet) 2 interfete WAN
+b. 4 interfete fizice
+c. Gigabit Ethernet 0/0 BW: 1000000 Kbit; Serial 0/0/0 BW: 1544 Kbit
+
+Step 3
+a. 1 slot
+b. 5 sloturi
+
+Part 2
+Step 1
+a.
+1. HWIC-4ESW
+2. 4
+b. PT-SWITCH-NM-1FGE
+
+Step 2
+d. GigabitEthernet5/1

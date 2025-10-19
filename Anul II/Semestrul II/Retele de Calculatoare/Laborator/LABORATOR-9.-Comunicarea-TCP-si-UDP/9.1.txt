@@ -1,0 +1,52 @@
+Part 1
+Step 7
+b. Conversation multiplexing
+   Reprezinta protocoale diferite
+   
+Part 2
+Step 1
+d. Pentru ca mai intai trebuie ca TCP-ul sa faca conexiunea
+e. TCP
+   Da
+   SRC PORT 1026
+   DEST PORT 80
+   SEQUENCE NUM 1
+   ACK NUM 1
+f. PSH, ACK
+h. SRC PORT si DEST PORT sunt inversate (80, 1026)
+i. SRC PORT si DEST PORT sunt inversate (80, 1026)
+
+Step 2
+c. Da
+d. SRC PORT 1026
+   DEST PORT 21
+   SEQUENCE NUM 0
+   ACK NUM 0
+   SYN
+f. SRC PORT si DEST PORT sunt inversate (21, 1026), ACK NUM e 1
+g. SRC PORT si DEST PORT sunt inversate (21, 1026), SEQUENCE NUM si ACK NUM sunt 1
+i. Welcome to PT Ftp server
+
+Step 3
+d. UDP
+   Nu
+e. SRC PORT 1026
+   DEST PORT 53
+   Pentru ca UDP nu stabileste o conexiune de incredere
+g. SRC PORT si DEST PORT sunt inversate
+   DNS Answer
+   192.168.1.254
+   
+Step 4
+d. TCP
+   Da
+e. SRC PORT 1026
+   DEST PORT 25
+   SEQUENCE NUM 0
+   ACK NUM 0
+   SYN
+g. SRC PORT si DEST PORT sunt inversate (25, 1026), ACK NUM e 1
+   SRC PORT si DEST PORT sunt inversate (25, 1026), SEQUENCE NUM si ACK NUM sunt 1
+i. SRC PORT si DEST PORT sunt inversate (1026, 25)
+   SMTP
+   POP3

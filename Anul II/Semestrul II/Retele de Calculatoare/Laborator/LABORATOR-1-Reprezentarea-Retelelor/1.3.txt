@@ -1,0 +1,27 @@
+Step 1
+Categorii dispozitive intermediare: Routers, Switches, Hubs, Wireless Devices, WAN Emulation
+Nr dispozitive endpoint: 15
+Nr dispozitive intermediare: 11
+Nr end device-uri care nu sunt calculatoare desktop: 8
+Nr tipuri diferite de conexiuni media: 4
+
+Step 2
+a. Modelul client-server se refera la impartirea sarcinilor intre clienti si servere. 
+Clientii trimit request-uri catre servere pentru a accesa anumite servicii,
+iar serverele furnizeaza serivcii si resurse clientilor.
+b. Functii dispozitive intermediare: retransmit date, anunta celelalte dispozitive daca
+a aparut vreo eroare, permit sau nu transmiterea de date in functie de setarile de securitate
+c. Criterii pentru alegerea unui tip de mediu de retea: distanta pe care poate transmite,
+costul, cate de multe date trebuie transmise si la ce viteza
+
+Step 3
+a. LAN = local area network; acopera o zona mica din punct de vedere al distantei fizice;
+are viteza si rata de transfer mai mare; exemple: o universitate, un birou
+WAN = wide area network; acopera o zona mai mare din punct de vedere al distantei fizice;
+are viteza si rata de transfer mai mica; exemple: internetul, un oras, un intranet al unei companii
+b. 2 (internet si intranet)
+c. 3 (home office, branch, central)
+d. Internetul este o retea globala formata din mai multe retele interconectate. Este folosit pentru
+a transmite si primi informatii de oriunde din lume cu o conexiune la internet.
+e. Mobil, hotspot WiFi, cablu, DSL
+f. Cablu, DSL

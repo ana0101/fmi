@@ -1,0 +1,52 @@
+Deadline:
+- 15 martie: echipele (3-5) + tema proiectului: georgiana.asavoaei@gmail.com
+- 22 martie: finalizati backlog (ex: trello, jira) (cerinta features)
+- 11 (recuperare lab 1 martie), 12 aprilie: deadline 1/3 proiect
+- 24 mai: deadline 2/3 proiect
+- 6 (recuperare lab 17 mai), 7 iunie: prezentare finala
+
+Documentatie (repo git in readme):
+1) 22 martie: user stories (2p - minim 10)
+Agile: 
+	Title: Delete User
+	Description: As a <role> I want to <action> so that <purpose>.
+		ex: As an admin I want to be able to edit user rights from users pannel so that I can remove / add / access for new team members.
+	Descriptions / Steps: - Login with admin
+						  - Go to users page
+						  - Each user should have a blue button 
+						  - When click the button, a pop-up opens with this fields: ...
+						  - The pop-up has two buttons: save / cancel
+							- On save we display the message: ...
+						  - Rez: ...
+						  
+2) Diagrame: UML, DB (2p)
+3) Source control - commits (min 10), pull req, feature branchs
+4) Teste automate (unit, integration) (2p) - min 5
+5) Bug report (1p) - nou user stories - titlu, steps to reproduce
+				   - cod - req - commit (pull req - bug 57) - doc link PR, screenshot
+6) Refractoring (1p) - PR (pull req) - doc link
+7) Comentarii (1p)
+8) Design pattern
+9) Folosirea unui tool de AI (ex: ChatGPT) (1p)
+=> 13 p
+
+Ex proiecte: freelance app, web api care sa tina datoriile intre prieteni, find steady budy, librarie de muzica generativa (.net core + angluar),
+aplicatie review restaurant, find band member, joc in unity, fitness app
+						  
+Sprints:
+- 1-2 saptamani
+
+Mail: echipa + tema + link git (link trello / jira etc)
+
+
+User stories
+1. Autentificare
+2. Autorizare (2 roluri user si admin)
+3. Configurare profil
+4. Ce scop ai (mentinere, slabire, ingrasat etc)
+5. Logare alimente mancate
+6. Calculat calorii zilnic (+macronutrienti)
+7. Adaugat aliment nou ca user
+8. Ales exercitii fizice
+9. Introdus ce grupe de muschi vrei sa lucrezi => iti alege ce exercitii sa faci
+10. Afisat raport al evolutiei

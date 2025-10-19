@@ -1,0 +1,11 @@
+Part 3
+o.
+Interface	S1 Status	S1 Protocol	S2 Status	S2 Protocol
+F0/1		Up			Up			Up			Up
+F0/6		Up			Up			Down		Down
+F0/18		Down		Down		Up			Up
+VLAN 1		Up			Up			Up			Up
+
+Reflection Questions
+Un port FastEthernet sunt up atunci cand e un cablu conectat la el
+Un ping s-ar putea sa nu fie trimis intre PC-uri din cauza unui IP gresit

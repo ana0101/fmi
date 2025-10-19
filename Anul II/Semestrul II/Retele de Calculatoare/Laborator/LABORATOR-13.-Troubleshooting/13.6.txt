@@ -1,0 +1,14 @@
+PC-A nu are default gateway-ul setat.
+Setez default gateway-ul la PC-A ca 192.168.1.1.
+
+S1 are setat default gateway-ul gresit (192.168.1.0).
+Setez default gateway-ul corect la S1 ca 192.168.1.1.
+
+La S1, interfata FastEthernet0/5 este setata ca duplex half.
+Setez duplex full.
+
+La R1, interfata GigabitEthernet0/0/1 este setata ca duplex half si speed 10.
+Sezet duplex full si speed 100.
+
+Pe R1 nu este setat ip route.
+Setez ip route 0.0.0.0 0.0.0.0 10.1.1.2.

@@ -1,0 +1,20 @@
+Part 1
+Step 1
+Destination host unreachable.
+
+Step 2
+b. 10.0.0.254
+c. 10.100.100.6
+
+Step 3
+RouterB, RouterC
+a. Active
+b. Interfata Serial0/0/0 are o adreda IP gresita
+c. Configurez interfata Serial0/0/0 cu adresa IP 10.100.100.9/30
+
+Step 4
+b. Da
+
+Part 2
+b. Da
+c. PC-ul are o adresa in plus fata de router (10.0.0.254)

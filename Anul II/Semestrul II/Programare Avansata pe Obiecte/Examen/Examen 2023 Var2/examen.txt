@@ -1,0 +1,36 @@
+class CitireScrierePersoane {
+	private static String numeFisier;
+	private static ArrayList<Persoana> persoane;
+	private static CitireScrierePersoane citireScrierePersoane;
+	
+	private CitireScrierePersoane(String numeFisier, ArrayList<Persoana> persoane) {
+		this.numeFisier = numeFisier;
+		this.persoane = persoane;
+	}
+	
+	public static CitireScrierePersoane getCitireScrierePersoane(String numeFisier, ArrayList<Persoana> persoane) {
+		if (citireScrierePersoane == null) {
+			citireScrierePersoane = new CitireScrierePersoane(numeFisier, persoane);
+		}
+		return citireScrierePersoane;
+	}
+	
+	public void scrie() {
+		Scanner sc = new Scanner(new File(numeFisier));
+		for (Persoana p : persoane) {
+			sc.writeLine(p.getNume() + "," + p.getVarsta() + "," + p.getVenit());
+		}
+	}
+	
+	public void citeste() {
+		Scanner sc = new Scanner(new File(numeFisier));
+		while (sc.hasNext()) {
+			String[] linie = sc.nextLine().split(",");
+			String nume = linie[0];
+			int varsta = Integer.parseInt(line[1]);
+			double venit = Double.parseDouble(linie[2]);
+			persoane.add(new Persoana(nume, varsta, venit));
+		}
+	}
+}
+

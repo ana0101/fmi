@@ -1,0 +1,36 @@
+Part 1
+Step 1
+d. Nu
+   3
+   172.16.31.3
+e. Sursa a devenit destinatia
+   FFFF.FFFF.FFFF a devenit adresa MAC a 172.16.31.3
+f. 1
+
+Step 2
+a. Da
+c. 172.16.31.3
+   Cand nu stie adresa MAC a destinatarului
+   
+Part 2
+Step 1
+c. 4 trimise si 4 primite
+
+Step 2
+a. Da
+b. Nu
+   Pentru ca cele doua laptop-uri se conecteaza prin access point la acelasi port
+   
+Part 3
+Step 1
+c. 172.16.31.1
+e. 2
+f. 172.16.31.1
+g. Pentru ca host-ul destinatar nu este in aceeasi retea ca sursa, 
+sursa trimite catre adresa MAC a router-ului care are rol de gateway,
+pe care o afla prin ARP
+
+Step 2
+b. 0
+c. Da
+   Da timed out

@@ -1,0 +1,71 @@
+Part 1
+Step 1
+c. IPv4: 192.168.50.28;
+   Default Gateway: 192.168.50.1
+
+Step 2. 192.168.50.1
+
+Step 3
+d. IPv4 public: 188.25.162.16
+   Locatie: Bucharest, B RO
+   ISP: RCS & RDS S.A.
+
+Step 4
+a. Wireless
+b. Pe hol
+c. Cablu
+
+Part 2
+Step 2
+d. Cablu
+e. 10.0.0.1
+
+Step 3 
+Nu am gasit informatiile
+
+Step 5
+c. 10.110.178.133
+d. Router: rur02.monterey.ca.sfba.comcast.net
+   Interface: GigabitEthernet0/0
+e. 10.139.198.129
+f. Router: rur01.monterey.ca.sfba.comcast.net
+   Interface: GigabitEthernet0/0
+g. Pentru ca acele interfete sunt sursa pentru pachetele trimise la
+urmatoarea destinatie hop si sursele nu apar in traceroute
+h. StamAcasa.rdsnet.ro [10.0.0.1]
+   10.28.24.97
+   10.220.199.0
+   10.220.177.110
+   
+Step 6
+a. rdsnet.ro => Romania, Digi
+d. Hop	Domain Name	                     Interface	        IPv4 Address
+   5	santaclara.ca.sfba.comcast.net	 GigabitEthenet0/0	10.151.78.177
+   6	sunnyvale.ca.ibone.comcast.net	 GigabitEthenet0/0	10.110.41.121
+   7	sunnyvale.ca.ibone.comcast.net	 GigabitEthenet0/0	10.110.46.30
+   8	9greatoaks.ca.ibone.comcast.net	 GigabitEthenet0/0	10.110.37.178
+   9	9greatoaks.ca.ibone.comcast.net	 GigabitEthenet0/0	10.110.32.246
+e. Building: greatoaks.calibone
+   Router: pe11.9greatoaks.ca.ibone.comcast.net
+   Interface: GigabitEthernet1/0
+   IPv4 address: 172.16.69.142
+   
+Step 7
+d. GigabitEthernet0/0
+
+Step 8
+100 Gbit/s
+
+Step 9
+c. GigabitEthernet0/0
+
+Step 10
+a. 3
+b. SEA-US
+c. Makaha
+d. 4
+g. 40-90 km
+i. GigabitEthernet0/0
+
+Step 11
+GigabitEthernet0/0

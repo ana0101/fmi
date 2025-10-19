@@ -1,0 +1,42 @@
+Part 1
+Step 2
+b. 9600 biti pe secunda
+c. S1>
+
+Step 3
+a. Connect
+b. t? => telnet terminal  traceroute
+te? => telnet  terminal
+
+Part 2
+Step 1
+a. Turn on privileged commands
+b. enable
+te
+c. Din S1> devine S1#
+d. 5 (clear, clock, configure, connect, copy)
+
+Step 2
+a. Configuring from terminal, memory, or network [terminal]?
+b. S1(config)#
+
+Part 3
+Step 1
+a. *7:11:49.220 UTC Mon Mar 1 1993 => anul 1993
+b. % Incomplete command.
+c. set  Set the time and date
+d. hh:mm:ss Current Time
+e. <1-31>  Day of the month
+  MONTH   Month of the year
+  
+Step 2
+b. cl => % Ambiguous command: "cl"
+clock => % Incomplete command.
+
+S1#clock set 25:00:00
+             ^
+% Invalid input detected at '^' marker.
+
+S1#clock set 25:00:00
+             ^
+% Invalid input detected at '^' marker.

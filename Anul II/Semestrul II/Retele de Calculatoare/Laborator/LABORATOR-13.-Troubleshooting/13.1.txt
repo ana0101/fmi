@@ -1,0 +1,23 @@
+Part 1
+Step 1
+a.
+Device   Default Gateway
+S1       192.168.10.1
+S2       192.168.11.1
+PC1      192.168.10.1
+PC2      192.168.10.1
+PC3      192.168.11.1
+PC4      192.168.11.1
+
+b. 
+Test        Successful?   Issues                         Solution                    Verified
+PC1-PC2     Nu            Adresa IP gresita la PC1       Schimb adresa IP la PC1     Da
+PC1-S1      Da
+PC1-R1      Da
+PC3-PC4     Da
+PC3-S2      Nu            S2 nu are adresa IP            Pun adresa IP la S2         Da
+PC3-R1      Da
+PC1-S2      Da
+PC1-PC3     Da
+PC1-PC4     Nu            Default gateway gresit la PC4  Pun default gateway corect  Da
+PC3-S1      Nu            S1 nu are default gateway      Pun default gateway         Da

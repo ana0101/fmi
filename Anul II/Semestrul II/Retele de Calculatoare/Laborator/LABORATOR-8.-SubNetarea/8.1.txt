@@ -1,0 +1,55 @@
+Part 1
+Step 1
+d. 50 host-uri
+   4 subretele
+   1111.1111/1111.1111/1111.1111/0000.0000
+e. Unu reprezinta partea de retea
+   Zero reprezinta partea de host
+f. 1) 255.255.255.128
+      2^1 = 2 subretele
+	  2^7 - 2 = 126 host-uri per subretea
+   2) 255.255.255.192
+      2^2 = 4 subretele
+	  2^6 - 2 = 62 host-uri per subretea
+   3) 255.255.255.224
+      2^3 = 8 subretele
+	  2^5 - 2 = 30 host-uri per subretea
+   4) 255.255.255.240
+      2^4 = 16 subretele
+	  2^4 - 2 = 14 host-uri per subretea
+   5) 255.255.255.248
+      2^5 = 32 subretele 
+	  2^3 - 2 = 6 host-uri per subretea
+   6) 255.255.255.252
+      2^6 = 64 subretele
+	  2^2 - 2 = 2 host-uri per subretea
+	  
+   mastile care indeplinesc numarul minim de host-uri: /25, /26
+   mastile care indeplinesc numarul minim de subretele: /26, /27, /28, /29, /30
+   masca care le indeplineste pe ambele: /26
+   
+   Subnet Addres     Prefix     Subnet Mask
+   192.168.0.0       /26        255.255.255.192
+   192.168.0.64      /26        255.255.255.192
+   192.168.0.128     /26        255.255.255.192
+   192.168.0.192     /26        255.255.255.192
+   
+Step 2
+Device           Interface   IP Address       Subnet Mask       Default Gateway
+CustomerRouter   G0/0        192.168.0.1      255.255.255.192   N/A
+CustomerRouter   G0/1        192.168.0.65     255.255.255.192   N/A
+CustomerRouter   S0/1/0      209.165.201.2    255.255.255.252   N/A
+LAN-A Switch     VLAN1       192.168.0.2      255.255.255.192   192.168.0.1
+LAN-B Switch     VLAN1       192.168.0.66     255.255.255.192   192.168.0.65
+PC-A             NIC         192.168.0.62     255.255.255.192   192.168.0.1
+PC-B             NIC         192.168.0.126    255.255.255.192   192.168.0.65
+ISPRouter        G0/0        209.165.200.225  255.255.255.224   N/A
+ISPRouter        S0/1/0      209.165.201.1    255.255.255.252   N/A
+ISPSwitch        VLAN1       209.165.200.226  255.255.255.224   209.165.200.225
+ISP Workstation  NIC         209.165.200.235  255.255.255.224   209.165.200.225
+ISP Server       NIC         209.165.200.240  255.255.255.224   209.165.200.225
+
+Part 3
+a. da
+b. da
+c. da

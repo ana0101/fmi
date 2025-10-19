@@ -1,0 +1,14 @@
+Part 1
+Step 6
+PC1 are configurat gresit adresa IPv4 DNS
+Configurez adresa IPv4 DNS corecta (64.100.1.254)
+
+Part 2
+Step 3
+DualStackServer.pka are configurat gresit default gateway-ul IPv6
+Configurez corect default gateway-ul (FE80::A)
+
+Part 3
+Step 3
+PC2 are configurat gresit default gateway-ul IPv4
+Configurez corect default gateway-ul IPv4 (192.168.0.1)

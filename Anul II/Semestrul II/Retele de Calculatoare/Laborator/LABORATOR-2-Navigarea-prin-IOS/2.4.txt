@@ -1,0 +1,28 @@
+Part 1
+Step 2
+b
+1) 24 interfete Fast Ethernet
+2) 2 interfete Gigabit Ethernet
+3) 0-15 domeniu valori vty
+4) show startup-configuration
+5) Pentru ca fisierul de configurare nu e salvat in NVRAM
+
+Part 2
+Step 2. Ca sa fie ceruta parola
+
+Step 7
+b. $1$mERr$ILwq/b7kc.7X/ejA4Aosn0
+c. Enable secret este criptata
+
+Step 8. Criptate pentru ca service password-encryption cripteaza
+si parolele viitoare
+
+Part 3
+Step 1
+1) Cand cineva acceseaza switch-ul prin consola
+2) Pentru a transmite anunturi altor colegi care lucreaza sau pentru a
+avertiza persoanele neautorizate ca accesul este interzis
+
+Part 4
+Step 2. copy running-c startup-c
+Step 3. show startup-config

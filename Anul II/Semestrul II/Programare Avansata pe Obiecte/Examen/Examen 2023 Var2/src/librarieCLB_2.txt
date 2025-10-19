@@ -1,0 +1,4 @@
+titlu1,autor2,editura1,30,50
+titlu1,autor2,editura1,30,50
+titlu1,autor1,editura2,20,10
+titlu2,autor1,editura1,10,50

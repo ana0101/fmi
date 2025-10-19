@@ -1,0 +1,16 @@
+Food (id, calorii, carbohidrati, proteine, grasimi, public)
+PhysicalActivity (id, calorii, muschi (lista))
+User (id, email, password)
+Role (id)
+Profil (id, name, age, weight, height, goal)
+Zi (idProfil, date, foods (list), physicalExercises (list))
+Request (pendingRequests (list))
+
+
+Relatii
+User-Profil -> 1:1
+User-Role -> m:m
+Profil-Zi -> 1:m
+Profil-Food -> m:m
+Profil-PhysicalActivity -> m:m
+User-Food -> 1:m

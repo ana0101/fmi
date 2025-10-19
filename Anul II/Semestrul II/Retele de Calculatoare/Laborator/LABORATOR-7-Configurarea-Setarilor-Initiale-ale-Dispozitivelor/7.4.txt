@@ -1,0 +1,53 @@
+Test: PC1 - PC2
+Succes: nu
+Problema: adresa IP incorecta la PC1
+Solutie: schimbat adresa IP la PC1
+Verificat: da
+
+Test: PC1 - S1
+Succes: da
+
+Test: PC2 - R1
+Succes: da
+
+Test: PC2 - S1
+Succes: da
+
+Test: PC2 - R1
+Succes: da
+
+Test: PC3 - PC4
+Succes: da
+
+Test: PC3 - S2
+Succes: nu
+Problema: adresa IP vlan1 nesetata la S2
+Solutie: setat adresa IP si masca de retea la S2 vlan1
+Verificat: da
+
+Test: PC3 - R1
+Succes: da
+
+Test: PC4 - S2
+Succes: da
+
+Test: PC4 - R1
+Succes: da
+
+Test: PC1 - S2
+Succes: da
+
+Test: S1 - S2
+Succes: nu
+Problema: default gateway vlan1 nesetat la S1
+Solutie: setat default gateway la S1 vlan1
+Verificat: da
+
+Test: PC1 - PC3
+Succes: da
+
+Test: PC1 - PC4
+Succes: nu
+Problema: default gateway gresit la PC4
+Solutie: setat default gatway corect la PC4
+Verificat: da

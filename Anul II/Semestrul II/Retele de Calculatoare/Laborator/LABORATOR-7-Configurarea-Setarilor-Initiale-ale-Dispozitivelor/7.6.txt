@@ -1,0 +1,23 @@
+Part 2
+Step 1
+c. Pentru ca interfetele router-ului nu au fost configurate
+
+Step 2
+n. Da pentru ca interfetele router-ului au fost configurate,
+   iar switch-ul activeaza automat interfetele conectate la dispozitive
+
+Part 3
+Step 1
+a. C si L
+   2
+   GigabitEthernet0/0/0 si GigabitEthernet0/0/1
+   
+Step 2
+a. Up
+b. 0060.4731.8102
+   192.168.1.1/24
+   
+Reflection Questions
+1. no shutdown
+2. PC-B nu ar raspunde la ping-ul de la PC-A pentru ca PC-A are setat ca
+   default-gateway 192.168.1.1

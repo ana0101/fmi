@@ -1,0 +1,17 @@
+LAN A1: 172.20.16.0/23 (RA: 172.20.16.1-172.20.17.254/23)
+LAN A2: 172.20.18.0/24 (RA: 172.20.18.1-172.20.18.254/24)
+LAN B1: 2001:db8:fade:00ff::/64
+LAN B2: 2001:db8:fade:0100::/64
+
+Device    Interface   IPv4 Address    Subnet Mask      Default Gateway
+                        IPv6 Address/Prefix
+Branch-A  G0/0        172.20.16.1     255.255.254.0    N/A
+          G0/1        172.20.18.1     255.255.255.0    N/A
+          G0/2        172.20.31.254   255.255.255.252  N/A
+Branch-B  G0/0        2001:db8:fade:00ff::1/64         N/A
+          G0/1        2001:db8:fade:0100::1/64         N/A
+		  G0/2        2001:DB8:FFFF:FFFF::2/64         N/A
+PC-A1     NIC         172.20.17.254   255.255.254.0    172.20.16.1
+PC-A2     NIC         172.20.18.254   255.255.255.0    172.20.18.1
+PC-B1     NIC         2001:db8:fade:00ff::10/64        fe80::b
+PC-B2     NIC         2001:db8:fade:0100::10/64        fe80::b

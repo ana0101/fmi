@@ -1,0 +1,5 @@
+Device          Default Gateway
+ManagerA        172.16.10.1, fe80::1
+Accounting.pka  172.16.10.1, fe80::1
+ManagerB        172.16.10.65, fe80::1
+Website.pka     172.16.10.65, fe80::1

@@ -1,0 +1,314 @@
+3. Programare functionala
+
+3.1 Lambda-calcul fara tipuri
+Reduceti urmatorii termeni pana la o forma normala:
+
+1. ((\z.z)(\q.(qq)))(\s.(sa))
+	\z.z = functia identitate
+	z[z:=(\q.qq)] (\s.sa)
+	Aplicam (\z.z) lui (\q.(qq))
+	(\z.z)(\q.(qq)) => \q.(qq)
+	=> (\q.(qq))(\s.(sa))
+	(\s.sa)(\s.sa)
+	(sa)[s:=\s.sa]
+	(\s.sa)a
+	aa
+	
+2. ((\z.z)(\z.(zz)))(\z.(zq))
+	z[z:=(\z.(zz))] (\z.(zq))
+	(\z.(zz))(\z.(zq))
+	(zz)[z:=(\z.(zq)]
+	(\z.(zq))(\z.(zq))
+	(zq)[z:=(\z.(zq))]
+	(\z.(zq))q
+	(zq)[z:=q]
+	qq
+	
+3. ((\s.\q.(sqq))(\a.a))b
+	\q.(sqq)[s:=(\a.a)]b
+	\q.((\a.a)qq)b
+	(\a.a)qq[q:=b]
+	(\a.a)bb
+	a[a:=bb]
+	bb
+	
+4. ((\s.\q.(sqq))(\q.q))q
+	\q.(sqq)[s:=(\q.q)]q
+	\q.((\q.q)qq)q
+	((\q.q)qq)[q:=q]
+	(\q.q)qq
+	q[q:=qq]
+	qq
+	
+5. ((\s.(ss))(\q.q))(\q.q)
+	ss[s:=(\q.q)](\q.q)
+	(\q.q)(\q.q)(\q.q)
+	q[q:=(\q.q)](\q.q)
+	(\q.q)(\q.q)
+	q[q:=(\q.q)]
+	\q.q
+	q
+	
+3.2 Lambda-calcul cu tipuri
+Consideram urmatorii termeni: 
+1. λxyz.(x(yz)); 
+2. λxy.(xy(λz.y)); 
+3. (λxyz.zxy)(λxyz.y)(λxy.y). ?- p(X), q(Y,Z). 
+Pentru fiecare dintre ei, aplicaţi algoritmul de inferenţă a tipurilor şi prezentaţi o deducţie în sistemul de deducţie corespunzător care să arate că termenului i se poate aloca tipul obţinut prin algoritm.
+
+1. \xyz.(x(yz))
+	Gamma = vid (nu avem variabile libere)
+	\x:X. \y:Y. \z:Z, (x(yz))
+	c(M', Gamma, X1)
+	= c(\x:X. \y:Y. \z:Z, (x(yz)), vid, X1)
+	= c(\y:Y. \z:Z, (x(yz)), {x:X}, X2) U {X1 = X -> X2}
+	= c(\z:Z, (x(yz)), {x:X, y:Y}, X3) U {X1 = X -> X2, X2 = Y -> X3}
+	= c(x(yz), {x:X, y:Y, z:Z}, X4) U {X1 = X -> X2, X2 = Y -> X3, X3 = Z -> X4}
+	= c(
+	
+	
+----------------------------------------------------------------------------------------------------------------------------
+	
+Lambda calcul cu tipuri
+\x.\y .((x y) (\z.y))
+
+x:X
+y:Y
+z:Z
+
+y:Y
+(\z.y): Z -> Y
+
+y:Y		X = Y -> A
+(x y) : A	A = (Z -> Y) -> B
+(x y) (\z.y) : B
+\y .((x y) (\z.y)) : Y -> B
+\x.\y .((x y) (\z.y)) : X -> Y -> B
+X = Y -> A = Y -> ((Z -> Y) -> B)
+Notam X := Y -> ((Z -> Y) -> B)
+
+1. x : X, y : Y, z : Z |- y : Y (Din regula pt variabile)
+2. x : X, y : Y |- \z.y : Z -> Y (din (1) folosind reg lambda)
+3. x : X, y : Y |- y : Y (reg. var)
+4. x : X, y : Y |- x : Y -> ((Z -> Y) -> B) (reg var)
+5. x : X, y : Y |- x y : (Z -> Y) -> B (din (3) si (4) folosind reg. aplicatiei)
+6. x : X, y : Y |- (x y) (\z.y) : B (din (5) si (2) folosind reg. aplicatiei)
+7. x : X |- \y . (x y) (\z.y) : Y -> B (din (6) folosind reg. lambda)
+8. |- \x.\y.(x y) (\z.y) : X -> Y -> B
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Unificare
+p(x, x, z) = p(f(a, a), y, y),  p(f(a, a), y, y) = p(f(x, a), b, z)
+
+Aplic pasul de descompunere folosind p(x, x, z) = p(f(a, a), y, y)
+Obtin:
+x = f(a, a), x = y, z = y,  p(f(a, a), y, y) = p(f(x, a), b, z)
+
+Aplic pasul de descompunere folosind p(f(a, a), y, y) = p(f(x, a), b, z)
+Obtin:
+x = f(a, a), x = y, z = y,  f(a, a) = f(x, a), y = b, y = z
+
+Aplic pasul de substitutie folosind y = b
+Obtin
+x = f(a, a), x = b, z = b,  f(a, a) = f(x, a), y = b, b = z
+
+Aplic pasul de substitutie folosind x = b
+Obtin
+b = f(a, a), x = b, z = b,  f(a, a) = f(b, a), y = b, b = z
+
+f(a,a) e notatie pentru faa
+b constanta  notatie pentru b()
+
+fs1..sn = gt1..tm
+
+p(x, x, z) = p(f(a, a), y, y),  p(x, x, z) = p(f(x, a), b, z)
+---------------------
+
+p(x, x, z) = p(f(a, a), y, y), p(x, x, z) = p(x, f(a, a), z)
+
+Aplic descompunere pe p(x, x, z) = p(f(a, a), y, y)
+Obtin
+x = f(a,a), x = y, z = y, p(x, x, z) = p(x, f(a, a), z)
+
+Aplic substitutie pe x = f(a,a)
+Obtin
+x = f(a,a), f(a,a) = y, z = y, p(f(a,a), f(a,a), z) = p(f(a,a), f(a, a), z)
+
+Aplic rotatie pe f(a,a) = y
+Obtin
+x = f(a,a), y = f(a,a), z = y, p(f(a,a), f(a,a), z) = p(f(a,a), f(a, a), z)
+
+Aplic substitutie pe y = f(a,a)
+Obtin
+x = f(a,a), y = f(a,a), z = f(a,a), p(f(a,a), f(a,a), f(a,a)) = p(f(a,a), f(a, a), f(a,a))
+
+Aplic descompunere pe p(f(a,a), f(a,a), f(a,a)) = p(f(a,a), f(a, a), f(a,a))
+Obtin
+x = f(a,a), y = f(a,a), z = f(a,a), f(a,a) = f(a,a)
+
+Aplic descompunere pe f(a,a) = f(a,a)
+Obtin
+x = f(a,a), y = f(a,a), z = f(a,a), a = a
+Aplic descompunere pe a = a  eqv cu a() = a() 
+Obtin
+x = f(a,a), y = f(a,a), z = f(a,a)
+
+
+Prin aplicari repetate a regulii de descompunere 
+Obtin
+x = f(a,a), y = f(a,a), z = f(a,a)
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Semantica operationala
+while ¬(Y = 0) do (Y := Y − 1; X := 2 ∗ X) din σ(X) = 1, σ(Y) = 2;
+
+Big Step
+--------
+
+Voi demonstra că: (while ¬(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X |-> 1, Y |-> 2}) se evaluează la {X |-> 4, Y |-> 0}
+Aplic regula While-ENTER (deoarece evaluarea lui ¬(Y = 0) e ¬(2 = 0) e ¬ 0 e 1)
+
+Raman de demonstrat
+1.1. (Y := Y − 1; X := 2 ∗ X) , {X |-> 1, Y |-> 2}) se evaluează la {X |-> 2, Y |-> 1}
+1.2 (while ¬(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X |-> 2, Y |-> 1}) se evalueaza la {X |-> 4, Y |-> 0}
+
+Demonstrez 1.1.
+...
+
+Demonstrez 1.2.
+...
+
+
+Aplic regula While-ENTER (deoarece evaluarea lui ¬(Y = 0) e ¬(2 = 0) e ¬ 0 e 1)
+Raman de demonstrat
+1.1. (Y := Y − 1; X := 2 ∗ X) , {X |-> 1, Y |-> 2})
+  Aplic regula pentru ;
+  Raman de demonstrat
+  1.1.1. (Y := Y − 1, {X |-> 1, Y |-> 2}) se evalueaza la {X |-> 1, Y |-> 1}
+    (din regula pentru := ) 
+    
+  1.1.2. (X := 2 ∗ X, {X |-> 1, Y |-> 1}) se evalueaza la {X |-> 2, Y |-> 1}
+     (din regula pentru := )
+  Deci (Y := Y − 1; X := 2 ∗ X) , {X |-> 1, Y |-> 2}) se evalueaza la {X |-> 2, Y |-> 1} 
+     (din regula pentru ; folosind 1.1.1 si 1.1.2 )
+
+1.2. (while ¬(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X |-> 2, Y |-> 1})
+   evaluez ¬(Y = 0) in {X |-> 2, Y |-> 1} : obtin 1
+
+   Aplic regula While-ENTER (deoarece evaluarea lui ¬(Y = 0) e ¬(2 = 0) e ¬ 0 e 1)
+   Raman de demonstrat
+   1.2.1. (Y := Y − 1; X := 2 ∗ X) , {X |-> 2, Y |-> 1})
+     Aplic regula pentru ;
+     Raman de demonstrat
+     1.2.1.1. (Y := Y − 1, {X |-> 2, Y |-> 1}) se evalueaza la {X |-> 2, Y |-> 0}
+       (din regula pentru := ) 
+    
+     1.2.1.2. (X := 2 ∗ X, {X |-> 2, Y |-> 0}) se evalueaza la {X |-> 4, Y |-> 0}
+        (din regula pentru := )
+     Deci (Y := Y − 1; X := 2 ∗ X) , {X |-> 2, Y |-> 1}) se evalueaza la {X |-> 4, Y |-> 0} 
+        (din regula pentru ; folosind 1.2.1.1 si 1.2.1.2 )
+   1.2.2 (while ¬(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X |-> 4, Y |-> 0})
+      evaluez ¬(Y = 0) in {X |-> 4, Y |-> 0} : obtin 0
+      Deci (while ¬(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X |-> 4, Y |-> 0}) se evalueaza la {X |-> 4, Y |-> 0} din regula WHILE-EXIT
+  Deci (while ¬(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X |-> 2, Y |-> 1}) se evaluează la  {X |-> 4, Y |-> 0} 
+    (din WHILE-ENTER si (1.2.1) si (1.2.2))
+Deci (while ¬(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X |-> 1, Y |-> 2}) se evalueaza la {X |-> 4, Y |-> 0} 
+    (din WHILE-ENTER si (1.1) si (1.2))
+
+
+1. (while ¬(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X |-> 4, Y |-> 0}) se evalueaza la {X |-> 4, Y |-> 0} din regula WHILE-EXIT
+   (pentru că valoarea ¬(Y = 0) in {X |-> 4, Y |-> 0} este 0)
+2. (Y := Y − 1, {X |-> 2, Y |-> 1}) se evalueaza la {X |-> 2, Y |-> 0}
+       (din regula pentru := ) 
+3. (X := 2 ∗ X, {X |-> 2, Y |-> 0}) se evalueaza la {X |-> 4, Y |-> 0}
+        (din regula pentru := )
+4. (Y := Y − 1; X := 2 ∗ X) , {X |-> 2, Y |-> 1}) se evalueaza la {X |-> 4, Y |-> 0}
+        (din regula pentru ; folosind 2 si 3 )
+5. (while ¬(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X |-> 2, Y |-> 1}) se evaluează la  {X |-> 4, Y |-> 0} 
+    (din WHILE-ENTER pentru că  că valoarea ¬(Y = 0) in {X |-> 2, Y |-> 1} este 1 si (4) si (1))
+6. (Y := Y − 1, {X |-> 1, Y |-> 2}) se evalueaza la {X |-> 1, Y |-> 1}
+    (din regula pentru := ) 
+7. (X := 2 ∗ X, {X |-> 1, Y |-> 1}) se evalueaza la {X |-> 2, Y |-> 1}
+     (din regula pentru := )
+8. (Y := Y − 1; X := 2 ∗ X) , {X |-> 1, Y |-> 2}) se evalueaza la {X |-> 2, Y |-> 1} 
+     (din regula pentru ; folosind 6 si 7 )
+9. (while ¬(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X |-> 1, Y |-> 2}) se evalueaza la {X |-> 4, Y |-> 0} 
+    (din WHILE-ENTER pentru că că valoarea ¬(Y = 0) in {X |-> 1, Y |-> 2} este 1 si (8) si (5))
+
+
+----------------------------------------------------------------------------------------------------------------------------
+Small-step
+----------
+
+Notez W := while ¬(Y = 0) do (Y := Y − 1; X := 2 ∗ X)
+
+(while ¬(Y = 0) do (Y := Y − 1; X := 2 ∗ X), {X |-> 1, Y |-> 2})
+Aplic regula while; obtin
+(if ¬(Y = 0) then (Y := Y − 1; X := 2 ∗ X); W else skip, {X |-> 1, Y |-> 2})
+Deoarece valoarea lui ¬(Y = 0) in starea {X |-> 1, Y |-> 2} este 1
+Aplic regula if-true; obtin
+((Y := Y − 1; X := 2 ∗ X); W, {X |-> 1, Y |-> 2})
+Prin mai mulți pași structurali pentru ; și folosind regula pentru :=
+obtin:
+((skip; X := 2 ∗ X); W, {X |-> 1, Y |-> 1})
+Prin mai mulți pași structurali si regula pentru skip
+(X := 2 ∗ X; W, {X |-> 1, Y |-> 1})
+Prin mai mulți pași structurali pentru ; și folosind regula pentru :=
+obtin:
+(skip; W, {X |-> 2, Y |-> 1})
+Prin mai mulți pași structurali si regula pentru skip, obtin
+(W, {X |-> 2, Y |-> 1})
+Aplic regula while; obtin
+(if ¬(Y = 0) then (Y := Y − 1; X := 2 ∗ X); W else skip, {X |-> 2, Y |-> 1})
+Deoarece valoarea lui ¬(Y = 0) in starea {X |-> 2, Y |-> 1} este 1
+Aplic regula if-true; obtin
+((Y := Y − 1; X := 2 ∗ X); W, {X |-> 2, Y |-> 1})
+Prin mai mulți pași structurali pentru ; și folosind regula pentru :=
+obtin:
+((skip; X := 2 ∗ X); W, {X |-> 2, Y |-> 0})
+Prin mai mulți pași structurali si regula pentru skip
+(X := 2 ∗ X; W, {X |-> 4, Y |-> 0})
+Prin mai mulți pași structurali pentru ; și folosind regula pentru :=
+obtin:
+(skip; W, {X |-> 4, Y |-> 0})
+Prin mai mulți pași structurali si regula pentru skip
+(W, {X |-> 4, Y |-> 0})
+Aplic regula while; obtin
+(if ¬(Y = 0) then (Y := Y − 1; X := 2 ∗ X); W else skip, {X |-> 4, Y |-> 0})
+Deoarece valoarea lui ¬(Y = 0) in starea {X |-> 4, Y |-> 0} este 0
+Aplic regula if-false; obtin
+(skip, {X |-> 4, Y |-> 0})
+care este stare finală.
+
+Puteți spune că anumiți pași se repetă, deci să îi comprimați.
+
+
+----------------------------------------------------------------------------------------------------------------------------
+
+Semantica axiomatica
+Hoare Logic
+—-------------- 
+
+{X = n ∧ Y = m}(X := X + Y ; Y := X − Y ); X := X − Y {X = m ∧ Y = n};
+
+Avem  
+1. {X − Y = m ∧ Y = n} X := X − Y {X = m ∧ Y = n} din regula pentru :=
+2. {X − (X − Y) = m ∧ X − Y = n} Y := X − Y {X − Y = m ∧ Y = n} din regula pentru :=
+3. {(X + Y) − ((X + Y) − Y) = m ∧ (X + Y) − Y = n} X := X + Y  {X − (X − Y) = m ∧ X − Y = n}
+4. {(X + Y) − ((X + Y) − Y) = m ∧ (X + Y) − Y = n} X := X + Y ; Y := X − Y {X − Y = m ∧ Y = n}, din regula pentru ; folosind (3) și (2)
+5. {(X + Y) − ((X + Y) − Y) = m ∧ (X + Y) − Y = n}
+       (X := X + Y ; Y := X − Y ); X := X − Y
+   {X = m ∧ Y = n}
+   , din regula pentru ; folosind (4) și (1)
+6. {X = n ∧ Y = m}(X := X + Y ; Y := X − Y ); X := X − Y {X = m ∧ Y = n};
+   din regula consecintei, folosind (5) si verificand că
+   |= X = n ∧ Y = m -> (X + Y) − ((X + Y) − Y) = m ∧ (X + Y) − Y = n
+      evident prin manipulari artimetice
+   si
+   |= X = m ∧ Y = n -> X = m ∧ Y = n
+      evident (identitate)
+

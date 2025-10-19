@@ -1,0 +1,53 @@
+Part 1
+Step 1
+a. 5 (4 pentru LAN-uri, 1 pentru legatura dintre routere)
+b. 3
+c. 8
+d. 30 (2^5 - 2)
+
+e. Subnet  Network Address   Bit 7  Bit 6  Bit 5  Bit 4  Bit 3  Bit 2  Bit 1  Bit 0
+   0       192.168.100.      0      0      0      0      0      0      0      0
+   1       192.168.100.      0      0      1      0      0      0      0      0
+   2       192.168.100.      0      1      0      0      0      0      0      0
+   3       192.168.100.      0      1      1      0      0      0      0      0
+   0       192.168.100.      1      0      0      0      0      0      0      0
+   
+f. First Octet    Second Octet    Third Octet  Mask Bit 7  Mask Bit 6  Mask Bit 5  Mask Bit 4  Mask Bit 3  Mask Bit 2  Mask Bit 1  Mask Bit 0
+   11111111       11111111        11111111     1           1           1           0           0           0           0           0
+   First Decimal  Second Decimal  Third Decimal  Forth Decimal Octet
+   Octet          Octet           Octet
+   255.           255.            255.           224
+
+g. Subnet Number   Subnet Address   First Usable Host Address   Last Usable Host Address   Broadcast Address
+   0               192.168.100.0    192.168.100.1               192.168.100.30             192.168.100.31
+   1               192.168.100.32   192.168.100.33              192.168.100.62             192.168.100.63
+   2               192.168.100.64   192.168.100.65              192.168.100.94             192.168.100.955
+   3               192.168.100.96   192.168.100.97              192.168.100.126            192.168.100.127
+   4               192.168.100.128  192.168.100.129             192.168.100.158            192.168.100.159
+   5               192.168.100.160  192.168.100.161             192.168.100.190            192.168.100.191
+   6               192.168.100.192  192.168.100.193             192.168.100.222            192.168.100.223
+   7               192.168.100.224  192.168.100.225             192.168.100.254            192.168.100.255
+
+Step 2
+a. Assign Subnet 0 to the LAN connected to the GigabitEthernet 0/0 interface of R1: 192.168.100.0/27
+b. Assign Subnet 1 to the LAN connected to the GigabitEthernet 0/1 interface of R1: 192.168.100.32/27
+c. Assign Subnet 2 to the LAN connected to the GigabitEthernet 0/0 interface of R2: 192.168.100.64/27
+d. Assign Subnet 3 to the LAN connected to the GigabitEthernet 0/1 interface of R2: 192.168.100.96/27
+e. Assign Subnet 4 to the WAN link between R1 to R2: 192.168.100.128/27
+
+Step 3
+Device   Interface   IP Address       Subnet Mask       Default Gateway
+R1       G0/0        192.168.100.1    255.255.255.224   N/A
+R1       G0/1        192.168.100.33   255.255.255.224   N/A
+R1       S0/0/0      192.168.100.129  255.255.255.224   N/A
+R2       G0/0        192.168.100.65   255.255.255.224   N/A
+R2       G0/1        192.168.100.97   255.255.255.224   N/A
+R2       S0/0/0      192.168.100.158  255.255.255.224   N/A
+S1       VLAN 1      192.168.100.2    255.255.255.224   192.168.100.1
+S2       VLAN 1      192.168.100.34   255.255.255.224   192.168.100.33
+S3       VLAN 1      192.168.100.66   255.255.255.224   192.168.100.65
+S4       VLAN 1      192.168.100.98   255.255.255.224   192.168.100.97
+PC1      NIC         192.168.100.30   255.255.255.224   192.168.100.1
+PC2      NIC         192.168.100.62   255.255.255.224   192.168.100.33
+PC3      NIC         192.168.100.94   255.255.255.224   192.168.100.65
+PC4      NIC         192.168.100.126  255.255.255.224   192.168.100.97

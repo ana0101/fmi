@@ -1,0 +1,3 @@
+nume1,nationalitate2,1,1,1
+nume2,nationalitate2,1,1,1
+nume2,nationalitate1,1,1,1

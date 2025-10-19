@@ -1,0 +1,42 @@
+Part 1
+Step 1
+b.
+Destination                           Average Round Trip Time (ms)   TTL / Hop Limit
+192.168.1.10                          3                              128
+2001:db8:acad:1::10                   2                              128
+192.168.1.1 (R1)                      0                              255
+2001:db8:acad:1::1 (R1)               0                              255
+192.168.1.2 (S1)                      0                              255
+2001:db8:acad:1::2(S1)                0                              255
+64.100.0.2 (R1)                       0                              255
+2001:db8:acad::2 (R1)                 0                              255       
+64.100.0.1 (ISP)                      0                              254
+2001:db8:acad::1 (ISP)                0                              254
+209.165.200.225 (ISP G0/0/1)          Destination host unreachable  
+2001:db8:acad:200::225 (ISP G0/0/1)   Request timed out
+209.165.200.226 (External)            Destination host unreachable
+2001:db8:acad:200::226 (External)     Request timed out
+
+Step 2
+Destination                           Average Round Trip Time (ms)   Success rate     
+64.100.0.1 (ISP)                      0                              80%
+2001:db8:acad::1 (ISP)                                               0%
+209.165.200.225 (ISP G0/0/1)                                         0%
+2001:db8:acad:200::225 (ISP G0/0/1)                                  0%
+209.165.200.226 (External)                                           0%
+2001:db8:acad:200::226 (External)                                    0%
+
+Part 4
+Step 1
+g. Request timed out
+
+Step 2
+b. 209.165.200.226
+
+Reflection Questions
+1. Daca interfata e down, firewall, probleme la rutare
+2. Mesajul va fi . (request timed out). Inseamna ca nu a fost primit niciun raspuns
+in intervalul de timp definit. Ar trebui verificat daca destinatia e down, daca
+routerul e down sau daca timpul de raspuns e prea mare.
+3. Mesajul va fi destination host unreachable. Inseamna ca nu exista nicio ruta catre
+destinatie in tabelul de rutare.

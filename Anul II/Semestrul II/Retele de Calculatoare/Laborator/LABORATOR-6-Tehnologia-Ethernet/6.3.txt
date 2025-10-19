@@ -1,0 +1,37 @@
+Part 1
+Step 2
+e. Pentru ca PCA1 trebuie sa stie adresa MAC a PCA2 ca sa ii trimita pachete, iar IPv6 ND cere adresa
+f. ICMPv6 Echo Message Type: 128
+g. Adresa destinatie (s-a schimbat in FF02::1:FF00:B)
+   Adresa sursa este PCA1 MAC – 0001.427E.E8ED si adresa MAC destinatie este 3333.FF00.000B
+h. Nu
+i. Ethernet II DEST ADDR: 3333.FF00.000B 
+   Ethernet II SRC ADDR: 0040.0BD2.243E 
+   IPv6 SRC IP: 2001:DB8:ACAD:1::B 
+   IPv6 DST IP: FF02::1:FF00:B 
+j. Pentru ca adresa IPv6 nu e aceeasi ca a router-ului asa ca arunca pachetul
+l. Da
+m. 129
+o. Pentru ca PCA1 stie adresa MAC a PCA2
+
+Part 2
+Step 1
+f. fe80::201:42ff:fe7e:e8ed
+g. 0001.961d.6301
+i. Adresa MAC a destinatiei
+m. Nu
+n. Interfata G0/0/1 a RTA
+   Pentru ca destinatia este in alta retea
+   
+Step 2
+b. 4
+   PCA1, PCB1
+   Nu
+   
+Reflection Questions
+1. Cand nu stie adresa MAC a destinatiei
+2. Pastreaza o tabela de vecini
+3. Foloseste o adresa multicast
+4. Cand sunt in acelasi LAN doar dispozitivul care se potriveste adresei
+IPv6 raspunde, cand destinatia e in alt LAN router-ul furnizeaza adresa MAC
+a interfetei corespunzatoare destinatiei

@@ -1,0 +1,103 @@
+BIG STEP
+
+if X <= 7 then Z := X else Z := Y , s = {X=0, Y=1, Z=7} |v| s'
+    e(X <= 7) = e(0 <= 7) = 1
+Z := X , s = {X=0, Y=1, Z=7} |v| s' = s (Z := e_s X)
+    s' = {X=0, Y=1, Z=0}
+
+while 4 ≤ X do X := X − Y , s = {X=6, Y=3} |v| s'
+    e(4 <= X) = e(4 <= 6) = 1
+    X := X − Y , s = {X=6, Y=3} |v| s'' = s(X := e_s(X-Y)) = s(X := 3) = {X=3, Y=3}
+    while 4 ≤ X do X := X − Y , {X=3, Y=3} |v| s'
+        e(4 <= X) = e(4 <= 3) = 0
+        s' = {X=3, Y=3}
+
+while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , s := {X=1, Y=3} |v| s'
+    e(~(Y = 0)) = e(~(3 = 0)) = 1
+    Y := Y − 1; X := 2 ∗ X , s := {X=1, Y=3} |v| s''
+        Y := Y − 1 , s := {X=1, Y=3} |v| s'' = s(Y := e_s(Y-1)) = {X=1, Y=2}
+        X := 2 ∗ X , s'' = {X=1, Y=2} |v| {X=2, Y=2}
+    while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=2, Y=2} |v| s'
+        e(~(Y = 0)) = e(~(2 = 0)) = 1
+        Y := Y − 1; X := 2 ∗ X , s := {X=2, Y=2} |v| s''
+            Y := Y − 1 , s := {X=2, Y=2} |v| s'' = s(Y := e_s(Y-1)) = {X=2, Y=1}
+            X := 2 ∗ X , s'' = {X=2, Y=1} |v| {X=4, Y=1}
+        while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=4, Y=1} |v| s'
+            e(~(Y = 0)) = e(~(1 = 0)) = 1
+            Y := Y − 1; X := 2 ∗ X , s := {X=4, Y=1} |v| s''
+                Y := Y − 1 , s := {X=4, Y=1} |v| s'' = s(Y := e_s(Y-1)) = {X=4, Y=0}
+                X := 2 ∗ X , s'' = {X=8, Y=0} |v| {X=8, Y=0}
+            while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=8, Y=0} |v| {X=8, Y=0}
+                e(~(Y = 0)) = e(~(0 = 0)) = 0
+
+SMALL STEP
+
+if X <= 7 then Z := X else Z := Y , {X=0, Y=1, Z=7}
+Z := X , {X=0, Y=1, Z=7}
+skip , {X=0, Y=1, Z=0}
+
+while 4 <= X do X := X − Y , {X=6, Y=3}
+if 4 <= X then (X := X-Y; while 4 <= X do X := X − Y) else skip , {X=6, Y=3}
+X := X-Y; while 4 <= X do X := X − Y , {X=6, Y=3}
+skip, while 4 <= X do X := X − Y , {X=3; Y=3}
+while 4 <= X do X := X − Y , {X=3; Y=3}
+if 4 <= X then (X := X-Y; while 4 <= X do X := X − Y) else skip , {X=3, Y=3}
+skip , {X=3, Y=3}
+
+while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=1, Y=3}
+if ~(Y = 0) then (Y := Y − 1; X := 2 ∗ X); while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) else skip , {X=1, Y=3}
+(Y := Y − 1; X := 2 ∗ X); while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=1, Y=3}
+(skip; X := 2 ∗ X); while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=1, Y=2}
+X := 2 ∗ X; while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=1, Y=2}
+skip; while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=2, Y=2}
+while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=2, Y=2}
+if ~(Y = 0) then (Y := Y − 1; X := 2 ∗ X); while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) else skip , {X=2, Y=2}
+(Y := Y − 1; X := 2 ∗ X); while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=2, Y=2}
+(skip; X := 2 ∗ X); while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=2, Y=1}
+X := 2 ∗ X; while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=2, Y=1}
+skip; while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=4, Y=1}
+while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=4, Y=1}
+if ~(Y = 0) then (Y := Y − 1; X := 2 ∗ X); while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) else skip , {X=4, Y=1}
+(Y := Y − 1; X := 2 ∗ X); while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=4, Y=1}
+(skip; X := 2 ∗ X); while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=4, Y=0}
+X := 2 ∗ X; while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=4, Y=0}
+skip; while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=8, Y=0}
+while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) , {X=8, Y=0}
+if ~(Y = 0) then (Y := Y − 1; X := 2 ∗ X); while ~(Y = 0) do (Y := Y − 1; X := 2 ∗ X) else skip , {X=8, Y=0}
+skip , {X=8, Y=0}
+
+HOARE
+
+Schema generala, trebuie detaliata folosind regulile mai exact
+{Y = m /\ X-Y = n} [X := X + Y] = {Y = m /\ (X+Y)-Y = n} = {Y = m /\ X = n}
+
+( X := X + Y ;
+
+{X-Y = m /\ Y = n} [Y := X - Y] = {X-(X-Y) = m /\ X-Y = n}
+
+  Y := X − Y ) ;
+
+{X=m /\ Y=n} [X := X - Y] = {X-Y = m /\ Y = n}
+
+  X := X − Y
+
+{X=m /\ Y=n}
+
+_________________
+_____________________
+
+
+{1 <= N} P := 0 {1 <= N /\ P = 0} (lema)
+{1 <= N /\ P = 0} C := 1 {1 <= N /\ P = 0 /\ C = 1} (lema)
+
+{1 <= N} P := 0; C :=1 {1 <= N /\ P = 0 /\ C = 1} (regula secventiere)
+
+Invariant: P = M * (C - 1) /\ C <= N + 1
+
+Demonstreaza
+{P = M * (C - 1) /\ C <= N + 1 /\ C <= N}
+    P := P + M ; C := C + 1
+{P = M * (C - 1) /\ C <= N + 1}
+folosind reglile de atribuire si secventiere
+
+apoi aplica regula de while

@@ -1,0 +1,44 @@
+Part 1
+Step 1
+b. Default gateway: Da
+   Web server: Da
+   PC-02: Da
+   PC-A: Nu
+   PC-B: Nu
+c. www.cisco.pka: Da
+   adresa IP: Da
+d. Configurata gresit adresa IP
+   Configurez adresa corecta (172.16.1.3)
+   
+Step 2
+b. Default gateway: Da
+   Web server: Da
+   PC-01: Da
+   PC-A: Nu
+   PC-B: Nu
+c. www.cisco.pka: Da
+   adresa IP: Da
+d. Configurat gresit default gateway-ul
+   Configurez corect default gateway-ul (172.16.1.1)
+   
+Step 3
+b. Default gateway: Nu
+   Web server: Nu
+   PC-B: Da
+   PC-01: Nu
+   PC-02: Nu
+c. www.cisco.pka: Nu
+   adresa IP: Nu
+d. La R1, interfata G0/1 e configurata cu o adresa IP gresita.
+   Configurez interfata cu adresa IP corecta
+   
+Step 4
+b. Default gateway: Da
+   Web server: Da
+   PC-A: Da
+   PC-01: Da
+   PC-02: Da
+c. www.cisco.pka: Nu
+   adresa IP: Da
+d. PC-B are setat DNS server-ul corect (DNS2).
+   Posibil ca server-ul DNS2 sa fie configurat gresit, dar nu am acces.

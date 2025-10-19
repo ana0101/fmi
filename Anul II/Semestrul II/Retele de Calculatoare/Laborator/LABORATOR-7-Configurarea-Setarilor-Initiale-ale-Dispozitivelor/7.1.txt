@@ -1,0 +1,55 @@
+Part 1
+Step 1
+e. 
+At Device	Dest. MAC	    Src MAC			Src IPv4	 Dest IPv4
+172.16.31.5	000C:85CC:1DA7	00D0:D311:C788	172.16.31.5	 172.16.31.2
+Switch1	    000C:85CC:1DA7	00D0:D311:C788	N/A			 N/A
+Hub	        N/A	            N/A	            N/A			 N/A
+172.16.31.2	00D0:D311:C788	000C:85CC:1DA7	172.16.31.2	 172.16.31.5
+   
+Step 2
+At Device	 Dest. MAC	     Src MAC	     Src IPv4	  Dest IPv4
+172.16.31.3	 000C:85CC:1DA7  0060:7036:2849	 172.16.31.3  172.16.31.2
+Hub	         N/A	         N/A	         N/A		  N/A
+172.16.31.2	 0060:7036:2849	 000C:85CC:1DA7	 172.16.31.2  172.16.31.3
+
+At Device	 Dest. MAC	     Src MAC	     Src IPv4	  Dest IPv4
+172.16.31.5	 000C:CF0B:BC80	 00D0:D311:C788	 172.16.31.5  172.16.31.4
+Switch 1     000C:CF0B:BC80  00D0:D311:C788  N/A          N/A
+172.16.31.4	 00D0:D311:C788	 000C:CF0B:BC80	 172.16.31.4  172.16.31.5
+
+Part 2
+Step 1
+d. Router-ul
+e. 
+At Device	  Dest. MAC	        Src MAC	        Src IPv4	 Dest IPv4
+172.16.31.5	  00D0:BA8E:741A	00D0:D311:C788	172.16.31.5	 10.10.10.2
+Switch1	      00D0:BA8E:741A	00D0:D311:C788	N/A	         N/A
+Router	      0060:2F84:4AB6	00D0:588C:2401	172.16.31.5	 10.10.10.2
+Switch0	      0060:2F84:4AB6	00D0:588C:2401	N/A	         N/A
+Access Point  N/A	            N/A	            N/A	         N/A
+10.10.10.2	  00D0:588C:2401	0060:2F84:4AB6	10.10.10.2	 172.16.31.5
+
+Reflection Questions
+1. Da
+2. Nu
+3. Nu
+4. Nimic
+5. Da. A reimpachetat-o ca wireless 802.11
+6. Nu
+7. 1
+8. Da
+9. Destinatia
+10. Pentru ca un switch poate sa inceapa sa trimita un frame mai departe
+catre o adresa MAC mai repede daca destinatia apare prima
+11. Nu
+12. Nu
+13. La router
+14. Router-ul
+15. Trimitatorului si destinatarului
+16. Nu
+17. Da
+18. Pentru fiecare parte din router trebuie un set diferit de adrese
+(sa nu se suprapuna)
+19. Pentru ca un router trebuie sa conecteze retele cu IP-uri diferite
+20. Adresele IPv4 ar fi fost inlocuite cu IPv6
