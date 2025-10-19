@@ -1,0 +1,52 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{geometry}
+
+\begin{document}
+
+\setcounter{equation}{20}
+
+You might find the environments \texttt{bmatrix} and \texttt{pmatrix} useful for the following exercises.
+
+\begin{equation}
+    \rho_\theta =
+    \begin{pmatrix}
+    \cos\theta & \sin\theta \\
+    -\sin\theta & \cos\theta
+    \end{pmatrix}
+    =
+    \begin{bmatrix}
+    \cos\theta & \sin\theta \\
+    -\sin\theta & \cos\theta
+    \end{bmatrix}
+\end{equation}
+
+\begin{equation}
+    \left[
+    \begin{array}{c|ccc}
+    1 & 0 & \cdots & 0 \\
+    \hline
+    0 & * & \cdots & * \\
+    \vdots & \vdots & \ddots & \vdots \\
+    0 & * & \cdots & *
+    \end{array}
+    \right]
+    =
+    \begin{array}{|c|ccc|}
+    \hline
+    1 & 0 & \cdots & 0 \\ \hline
+    0 & * & \cdots & * \\ 
+    \vdots & \vdots & \ddots & \vdots \\ 
+    0 & * & \cdots & * \\ \hline
+    \end{array}
+\end{equation}
+
+Note the locations of the bounds on the summation in the following exercise.
+
+\begin{equation}
+    \sigma = \sqrt{ \frac{1}{N} \sum_{i=1}^{N} p_i (x_i - \bar{x})^2 }
+    = \sqrt{ \frac{ \sum\limits_{i=1}^{N} p_i (x_i - \bar{x})^2 }{N} }
+\end{equation}
+
+\end{document}

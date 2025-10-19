@@ -1,0 +1,145 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage[a4paper, top=2cm, bottom=2cm, left=3cm, right=3cm, marginparwidth=1.75cm]{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{amsmath}
+\usepackage{indentfirst}
+\setlength{\parindent}{1.5em}
+
+\title{Individual Variability of Neural Computations Underlying Flexible Decisions \\ By Marino Pagan, Vincent D. Tang, Mikio C. Aoi, Jonathan W. Pillow, Valerio Mante, David Sussillo \& Carlos D. Brody}
+\author{Anamaria Hodivoianu}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+Making flexible decisions is an important part of intelligent behaviour. Whether it is a simple choice between two options or a complex decision, being able to adjust our thinking and choices based on the  situation and the context is crucial. How the brain achieves this has been a topic of interest to scientists for many years. 
+
+One important question is how the brain can focus on the relevant information and ignore the irrelevant information. The study \textit{Individual Variability of Neural Computations Underlying Flexible Decisions} by Marino Pagan, Vincent D. Tang, Mikio C. Aoi, Jonathan W. Pillow, Valerio Mante, David Sussillo, and Carlos D. Brody designed an expriment with rats to investigate this question. They used a task where rats has to pay attention to different features of sound depending on the context. They recorder their brain activity and then analyzed the data to see how the rats were able to adjust their behaviour based on the context. Their key finding was that although the rats were able to successfully complete the task, they used very different neural strategies to do so. This suggests that there is a lot of individual variability in the way that the brain processes information and makes decisions. The found difference in the mechanisms of decision-making between individuals is important because instead of assuming there is only one correct way the brain can process information, it shows that there are many different ways to achieve the same goal. 
+
+An important concept to understand in this study is context-dependent decision-making. This refers to the idea that the brain can adjust its computations based on the context in which a decision is being made. It requires selecting and integrating relevant sensory evidence, while ignoring irrelevant input. For example, if you are in a crowded room and you hear your name being called, what you will focus on can depend on what your goal is. If your goal is to  locate the person calling you, then the direction of the sound is an important feature. However, if your goal is to figure out who is calling you, then the frequency of the sound is the important feature.
+
+In neuroscience, there are some models that are used to explain how the brain makes decisions. One of those is the line attractor model, which suggests that brain activity can be represented as moving along a line as it adds up more information. Another important part is the selection vector, which is responsible for determining which information is relevant and which is not, depending on the situation.
+
+This study comes as a continuation of an earlier, similar study on monkeys, called \textit{Context-dependent computation by recurrent dynamics in the prefrontal cortex} by Mante et al. That study also looked at how the brain adjusts its computations based on the context.
+
+
+\section{Why Monkeys and Rats?}
+The study by Mante et al. used monkeys to investigate the mechanisms of context-dependent decision-making, while the study by Pagan et al. used rats. Both species are model organisms commonly used in neuroscience research, but they have different advantages and disadvantages. Model organism are non-human species that are used to study biological processes that are fairly similar to those in humans. They are chosen for their specific characteristics that make them suitable for research, and when experimenting on humans is not possible or ethical.
+
+Monkeys are often used in neuroscience research because they have a more complex brain structure and behaviour that is more similar to humans. They are also capable of performing complex tasks and have a higher level of cognitive function, and have a highly developed prefrontal cortex. This makes them ideal for studying higher-order cognitive processes, such as decision-making.
+
+Rats are often used in neuroscience research because they are smaller, easier to handle, and have a shorter lifespan than monkeys. They are also more cost-effective to maintain and breed, and allow precise, large-scale recordings of neural dynamics. Rats have been used in a wide range of studies, including those on learning, memory, and decision-making. Although they have a simpler brain structure, they are capable of performing complex tasks, and there are some similarities in the way that their brains process information.
+
+The prefrontal cortext is the front part of the frontal lobe of the brain, and it is responsible for high-level cognitive functions, such as decision-making, planning, and context-switching. It is involved in the integration of sensory information and the selection of appropriate responses based on the context. The prefrontal cortex is also important for working memory, which is the ability to hold and manipulate information in the mind over short periods of time. In monkeys, an important part of the prefrontal cortex is the dorsolateral prefrontal cortex (dlPFC), which is involved in executive functions, such as attention, working memory, and decision-making. In rats, the medial prefrontal cortex (mPFC) is the equivalent region that is involved in similar functions. Another important part of the prefrontal cortex of monkeys for this study is the frontal eye field (FEF), which is involved in the control of eye movements and motor planning. Its equivalent in rats for the rat study is the frontal orienting field (FOF), which controls orienting responses and decision output.
+
+
+\section{Theoretical Framework: Line Attractor}
+
+\subsection{Concept \& Intuition}
+The line attractor model is a theoretical framework used to explain how the brain processes information and makes decisions. It is thought of as a stable trajectory in a neural dynamic system. It suggests that brain activity can be represented as moving along a line in a high-dimensional space, where each point on the line corresponds to a different decision or action. As more information is added, the activity moves along the line towards the final decision point. If no new input comes in, it maintains its state. This model is often used to explain how the brain integrates sensory information and makes decisions based on that information.
+
+\subsection{The Math Behind It}
+Neural activity in the brain evolves over time according to this rule: 
+$\frac{d\vec{r}}{dt} = M\vec{r}$, where $\vec{r}$ is the neural activity vector, or the system state, $M$ is a matrix that describes the dynamics of the system, or how the system evolves. To understand this system, we need to look at the $M$ matrix, specifically at its eigenvectors and eigenvalues.
+
+Eigenvectors are special vectors that, when multiplied by the matrix, only change in scale, not direction. They represent the directions in which the system can evolve. Eigenvalues are the scaling factors associated with each eigenvector. They tell us how fast the system evolves along that direction. 
+
+A line attractor is a special case where the system has exactly one eigenvalue equal to zero, and all other eigenvalues are negative. This means that the system is stable along the direction of the eigenvector associated with the zero eigenvalue, while all other directions will decay over time.
+
+\subsection{Selection Vector}
+The selection vector is a key component of the line attractor model. It is a vector that determines which information is relevant and which is not, depending on the context. The selection vector can be thought of as a filter that allows the brain to focus on the relevant information and ignore the irrelevant information. 
+
+A choice can be represented as this equation:
+\[
+    \Delta \text{choice} = \vec{s} \cdot \vec{i}
+\],
+where $\vec{s}$ is the selection vector, and $\vec{i}$ is the input vector. The selection vector determines how much weight is given to each input feature, depending on the context. The dot product of the selection vector and the input vector moves the system along the decision line, which acts as a line attractor. If the selection vector is aligned with the input vector, the system will move a considerable distance along the line. If the selection vector is orthogonal to the input vector, the system will not move at all.
+
+
+\section{The Monkey Study}
+The study \textit{Context-dependent computation by recurrent dynamics in the prefrontal cortex} by Mante et al. was the starting point for the study by Pagan et al. It investigated how the prefrontal cortex of monkeys adjusts its computations based on the context in which a decision is being made. 
+
+\subsection{Task}
+They trained two mocaque monkeys to perform a task where they had to choose between two options based on a context cue. The task involved looking at a screen on which a stream of dots was presented. The dots were both green and red, and the stream was moving either to the left or to the right. Depending on the context cue displayed on the monitor right before the stream of dots, the monkeys has to pay attention to either the predominant color of the dots (green or red) or the direction of motion (left or right). The context cue was a blue cross for colour and a yellow circle for motion. Depending on the context, the monkeys has to look left if the predominant color was green or if the direction of motion was to the left, and they had to look right if the predominant color was red or if the direction of motion was to the right.
+
+\subsection{Neural Activity}
+The researchers recorded the activity of neurons in the prefrontal cortex of the monkeys while they were performing the task. They found that inputs from both the colour and the motion features entered the prefrontal cortex, so no early filtering was done. The prefrontal cortex was responsible for deciding which information was relevant and which was not, depending on the context. The researchers analyzed the neural activity and found that the system acted as a line attractor with selection vectors that were aligned with the relevant context. 
+
+\subsection{Recurrent Neural Networks}
+The researchers also trained recurrent neural networks (RNNs) to perform the same task. The RNNs received the same inputs as the monkeys, a stream of motion and colour, and a context cue. The trained RNNs were able to perform the task with a high level of accuracy, and their neural activity was similar to that of the monkeys. The networks learned to integrate only the relevant input based on context by developing internal dynamics based on a line attractor and context-specific selection vectors.
+
+
+\section{Experiment Design}
+The study \textit{Individual Variability of Neural Computations Underlying Flexible Decisions} by Pagan et al. was designed to investigate the individual variability in the mechanisms of decision-making in rats. The researchers used a similar task to the one used in the monkey study, but with some differences, the most important being they trained a significantly larger number of rats to perform the task, which allowed them to investigate the variability in the mechanisms of decision-making across individuals.
+
+\subsection{Task}
+The rats were trained to perform a task where they had to choose between two options based on a context cue. The task involved listening to some sound pulses from both the right and the left side, and with two different frequencies. Depending on the context cue, the rats had to pay attention to either the frequency of the sounds or the location of the sounds. The context cue was a sound played right before the sound pulses. The rats had to turn left it the predominant frequency was low or if the predominant location was left, and they had to turn right if the predominant frequency was high or if the predominant location was right. If they chose correctly, they received some water as a reward.
+
+\subsection{Neural Activity}
+The researchers recorded the neural activity of the rats in the frontal orienting fields (FOF) while they were performing the task. Similar to the monkey study, they found that input from both the frequency and the location features entered the FOF, so no early filtering was done. The FOF was responsible for deciding which information was relevant and which was not, depending on the context. The researchers analyzed the neural activity and found that the system acted as a line attractor with selection vectors that were aligned with the relevant context, with the same choice axis for both contexts.
+
+\subsection{Theoretical Framework}
+To explain how the impact of a pulse of evidence is controlled, the researchers used the hypothesis that the choice axis acts as a line attractor. The implication is that the change in position along the choice axis is determined by the dot product between the selection vector and the input vector. The product should be grater in a relevant context and smaller in an irrelevant context. Across contexts, both the input vector and the selection vector can be modified.
+
+
+\section{The Three Components}
+The novelty of the study by Pagan et al. was that they were able to identify three different components of the decision-making process in the rats, which were not present in the monkey study. These components were:
+\begin{itemize}
+    \item Direct Input Modulation (DIM)
+    \item Indirect Input Modulation (IIM)
+    \item Selection Vector Modulation (SVM)
+\end{itemize}
+In the monkey study, the researchers only identified one component, which was the selection vector modulation. The three components are different ways in which the brain can modulate the input or the selection vector based on the context.
+
+\subsection{Direct Input Modulation (DIM)}
+Direct Input Modulation (DIM) refers to the change in the input vector parallel to the choice axis. This means that the input vector is modified in a way that is directly related to the choice being made. This type of modulation has an immediate effect on the decision-making process across contexts.
+
+\subsection{Indirect Input Modulation (IIM)}
+Indirect Input Modulation (IIM) refers to the change in the input vector orthogonal to the choice axis. This means that the input vector is modified in a way that is not directly related to the choice being made. This type of modulation has a gradual, delayed effect on the decision-making process across contexts.
+
+\subsection{Selection Vector Modulation (SVM)}
+Selection Vector Modulation (SVM) refers to the change in the selection vector. This means that its recurrent dynamics change to adjust to the relevant and irrelevant information. This type of modulation has a gradual, delayed effect on the decision-making process across contexts.
+
+
+\section{Variability}
+The researchers found that the rats used different combinations of the three components to perform the task, which resulted in a high level of individual variability in the mechanisms of decision-making. Some rats relied more on DIM, while others relied more on IIM or SVM. This suggests that there is a lot of individual variability in the way that the brain processes information and makes decisions, and that different strategies can be used to achieve the same goal with the same good performance.
+
+\subsection{Biological Implications}
+These findings have some important biological implications. One such implication is that the pulse effect of DIM is immediate, while the pulse effect of IIM and SVM changes with time, and the last pulse may have less influence. Another implication is that SVM is present in the decision-making regions of the brain, while DIM and IIM are outside the decision-making regions, probably in the sensory regions, which suggests that pathways from sensory regions to decision-making regions are important for decision-making.
+
+\subsection{Pulse Analysis Distinguish Solutions}
+Artificial model networks can be used to illustrate different approaches to solving the task. In the monkey study, the researchers trained RNNs to perform the task, and observed important similarities between the neural activity of the monkeys and the RNNs. Later realanysing this, the researchers found that SVM was the leading candidate used in the decision-making process.
+
+
+\section{Recurrent Neural Networks}
+In the current study, Pagan et al. also trained RNNs to perform the same task as the rats. The RNNs received the same inputs as the rats, and learned to solve the task with a high level of accuracy. 
+
+\subsection{Introduction to RNNs}
+To better understand how the RNNs were trained and what their learned strategies mean, it is important to understand how RNNs work. RNNs are a type of artificial neural network that is designed to process sequential data. They are called "recurrent" because they have connections that loop back on themselves, allowing them to maintain a memory of previous inputs. This makes them well-suited for tasks that involve time series data or sequences of events. RNNs consist of a series of interconnected nodes, or neurons, that process information in a way that is similar to the way that the brain processes information. Each node receives input from other nodes and produces output that is sent to other nodes. The connections between the nodes are weighted, meaning that some connections are stronger than others. The weights of the connections are adjusted during training to optimize the performance of the network.
+
+\subsection{New Observations in Linearization}
+The researchers of the current study analyzed the RNN results from the previous monkey study. Since the RNNs trained to perform the same task as the monkeys also used the same neural strategies, they also relied on SVM. A closer look at the RNNs revealed that the results were biased because of the linearization used. They found that activation-space hides input modulation because it linearizes before nonlinearity, while firing-rate-space linearizes after nonlinearity, revealing all three components.
+
+\subsection{RNN Training vs Engineering}
+Pagan et al. also trained many RNNs to perform the same task as the rats. Using backpropagation-through-time (BPTT) and firing-rate-space, the trained RNNs still used SVM as the leading candidate for the decision-making process. In order to create RNNs that also used other strategies, they had to engineer the networks rather then train them. They started by analyzing the trained RNNs to better understand their internal dynamics and how they ended up using SVM. Then, they derived the mathematical equations that describe how input and recurrent weights each contribute to the three components, DIM, IIM, and SVM. Finally, they used these equations to create new RNNs from scratch that use any possible combination of the three components.
+
+\subsection{Linking Neural and Behaviour Variability}
+The researchers also analyzed the variability in the neural activity of the rats and the RNNs. The study was based on the relative weight that evidence presented across different time points of a trial has on the subject's choice. This means that fast versus slow context-dependent effects on the choice axis should also have corresponding effects on behaviour. The researchers tested the prediction on RNNs engineered to solve the task using different amounts of DIM, and they found that the data from the RNNs was consistent with the data from the rats.
+
+
+\section{Results}
+The most important result of this study was that the rats used different neural strategies to perform the same task, and all strategies were equally effective. The researchers also discovered three components of the decision-making process, which were previously not identified in the monkey study. The three components were Direct Input Modulation (DIM), Indirect Input Modulation (IIM), and Selection Vector Modulation (SVM). The researchers found that the rats used different combinations of these components to perform the task, which resulted in a high level of individual variability in the mechanisms of decision-making. This paper was published because it is important to understand how the brain processes information and makes decisions based on the context, and because it continues and corrects the findings of the previous study on monkeys.
+
+
+\section{Conclusion}
+In my opinion, this study is an important contribution to the field of neuroscience. It provides new insights into the mechanisms of decision-making and into the different neural strategies that can be used to achieve the same goal. It emphasizes that each individual has a unique way of processing information and making decisions, and that there is no one-size-fits-all approach to decision-making. While this paper has a solid theoretical framework and a well-designed experiment, I think that the researchers could have done more to explain the biological implications of their findings. For example, they could have discussed how the different components of the decision-making process are related to different brain regions. Overall, I think that this study is a valuable addition to the field of neuroscience and provides a solid foundation for future research on individual variability in decision-making.
+
+This study can be useful for mostly for other neuroscientists who are interested in understanding the mechanisms of decision-making and the individual variability in the way that the brain processes information. It can also be useful for researchers who are working on developing artificial intelligence systems that are designed to mimic human decision-making processes. By understanding how the brain makes decisions, researchers can develop more sophisticated AI systems that are capable of making flexible decisions based on context. Since this study is quite new, published on the 28th of November 2024, it does not yet have any citations. However, I think that it will be cited in the future by other researchers who are working on similar topics.
+
+In conclusion, the study \textit{Individual Variability of Neural Computations Underlying Flexible Decisions} by Pagan et al. is a valuable contribution to the fields of neuroscience. It discovered that there are three distinct components in the decision-making process based on context, and that there is a high level of individual variability in the way that the brain processes information and makes decisions. Even if our brains don't work in exactly the same way, we can still solve the same problems.
+
+\end{document}
