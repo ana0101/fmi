@@ -39,7 +39,7 @@ drop type insotitori_zbor2;
 
 -- 10
 -- Creati tabelul pasageri2 cu coloanele id_pasager si nume din tabelul pasageri.
--- Adaugati in acest tabel un nou camp numit telefon de tip tablou imbricate.
+-- Adaugati in acest tabel un nou camp numit telefon de tip tablou imbricat.
 -- Acest tabel va mentine pentru fiecare pasager toate numerele de telefon la care
 -- poate fi contactat. Inserati o linie noua in tabel. Actualizati o linie din tabel.
 -- Afisati informatiile din tabel. Stergeti tabelul si tipul.

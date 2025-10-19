@@ -15,6 +15,9 @@ data Constant a b = Constant b
 instance Functor (Constant a) where
     fmap f (Constant x) = Constant (f x)
 
+-- il fixam pe a => t = Two a
+-- f se poate aplica doar pe un parametru, pe b
+-- conventie ca cel din dreapta sa fie cel pe care se aplica f
 data Two a b = Two a b
 instance Functor (Two a) where
     fmap f (Two x y) = Two x (f y)
@@ -44,13 +47,16 @@ instance Functor (Quant a) where
 data LiftItOut f a = LiftItOut (f a)
 instance (Functor f) => Functor (LiftItOut f) where
     fmap g (LiftItOut x) = LiftItOut (fmap g x)
+    -- g: a -> b
+    -- fmap g (LiftItOut x) = fmap g (LiftItOut (f a)) = LiftItOut (fmap g x) = 
+    -- = LiftItOut (fmap g (f a)) = LiftItOut (f(g(a))) = LiftItOut (f b)
 
 data Parappa f g a = DaWrappa (f a) (g a)
 instance (Functor f, Functor g) => Functor (Parappa f g) where
     fmap h (DaWrappa x y) = DaWrappa (fmap h x) (fmap h y)
 
 data IgnoreOne f g a b = IgnoringSomething (f a) (g b)
-instance (Functor f, Functor g) => Functor (IgnoreOne f g a) where
+instance (Functor g) => Functor (IgnoreOne f g a) where
     fmap h (IgnoringSomething x y) = IgnoringSomething x (fmap h y)
 
 data Notorious g o a t = Notorious (g o) (g a) (g t)
@@ -60,7 +66,7 @@ instance (Functor g) => Functor (Notorious g o a) where
 data GoatLord a = NoGoat | OneGoat a | MoreGoats (GoatLord a) (GoatLord a) (GoatLord a)
 instance Functor GoatLord where
     fmap _ NoGoat = NoGoat
-    fmap f (OneGoat a) = OneGoat (f a)
+    fmap f (OneGoat x) = OneGoat (f x)
     fmap f (MoreGoats x y z) = MoreGoats (fmap f x) (fmap f y) (fmap f z)
 
 data TalkToMe a = Halt | Print String a | Read (String -> a)
@@ -68,3 +74,4 @@ instance Functor TalkToMe where
     fmap _ Halt = Halt
     fmap f (Print s a) = Print s (f a)
     fmap f (Read g) = Read (f . g)
+    

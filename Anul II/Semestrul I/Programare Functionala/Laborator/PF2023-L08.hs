@@ -115,9 +115,12 @@ instance ToFromArb Punct where
 	toArb (Pt []) = Vid
 	toArb (Pt (h:t)) = N (F h) (toArb (Pt t))
 
-	-- fromArb Vid = Pt []
-	-- fromArb (F x) = Pt [x]
-	-- fromArb (N a1 a2) = Pt ((fromArb $ a1 :: Punct) ++ (fromArb $ a2 :: Punct))
+	fromArb Vid = Pt []
+	fromArb (F x) = Pt [x]
+	fromArb (N left right) = append (fromArb left) (fromArb right)
+
+append :: Punct -> Punct -> Punct
+append (Pt l1) (Pt l2) = Pt (l1 ++ l2)
 
 
 -- 6
