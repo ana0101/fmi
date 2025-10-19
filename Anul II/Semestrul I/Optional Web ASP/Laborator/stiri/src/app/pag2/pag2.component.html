@@ -1,0 +1,29 @@
+<h3>Adauga o stire</h3>
+<form (ngSubmit)="adaugaStire(myForm)" [formGroup]="myForm">
+    <div>
+        <label>Titlu: </label>
+        <input placeholder="Introd titlu" formControlName="titlu" />
+    </div>
+
+    <div>
+        <label>Lead: </label>
+        <input placeholder="Introd lead" formControlName="lead" />
+    </div>
+
+    <div>
+        <label>Continut: </label>
+        <input placeholder="Introd continut" formControlName="continut" />
+    </div>
+
+    <div>
+        <label>Autor: </label>
+        <input placeholder="Introd autor" formControlName="autor" />
+    </div>
+
+    <div>
+        <label>Id categ: </label>
+        <input placeholder="Introd categ id" formControlName="categorieId" />
+    </div>
+
+    <input type="submit" value="Adauga">
+</form>

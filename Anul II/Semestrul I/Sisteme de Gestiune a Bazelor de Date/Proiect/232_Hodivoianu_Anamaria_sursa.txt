@@ -1,0 +1,1692 @@
+create table modele_avioane (
+id_model number(4),
+nume_model varchar2(30),
+nr_locuri number(4) constraint null_nr_locuri not null,
+constraint pk_modele_avioane primary key(id_model));
+
+
+create table avioane (
+id_avion number(4),
+data_achizitionare date default sysdate,
+id_model number(4) constraint null_id_model_avion not null,
+constraint pk_avioane primary key(id_avion),
+constraint fk_avioane_model_avion foreign key(id_model) references modele_avioane(id_model));
+
+
+create table tari (
+id_tara number(4),
+nume varchar2(30),
+constraint pk_tari primary key(id_tara),
+constraint unq_nume_tari unique(nume));
+
+
+create table orase (
+id_oras number(4),
+nume varchar2(30),
+id_tara number(4) constraint null_tara not null,
+constraint pk_orase primary key(id_oras),
+constraint fk_orase_tara foreign key(id_tara) references tari(id_tara));
+
+
+create table aeroporturi (
+id_aeroport number(4),
+nume varchar2(30),
+id_oras number(4) constraint null_oras not null,
+constraint pk_aeroporturi primary key(id_aeroport),
+constraint fk_aeroporturi_oras foreign key(id_oras) references orase(id_oras));
+
+
+create table zboruri (
+id_zbor number(4),
+data_plecare date,
+data_sosire date,
+id_avion number(4) constraint null_avion not null,
+id_aeroport_plecare number(4) constraint null_plecare not null,
+id_aeroport_sosire number(4) constraint null_sosire not null,
+constraint pk_zboruri primary key(id_zbor),
+constraint fk_zboruri_avion foreign key(id_avion) references avioane(id_avion),
+constraint fk_zboruri_plecare foreign key(id_aeroport_plecare) references aeroporturi(id_aeroport),
+constraint fk_zboruri_sosire foreign key(id_aeroport_sosire) references aeroporturi(id_aeroport));
+
+
+create table piloti (
+id_pilot number(4),
+nume varchar2(30) constraint null_nume_pilot not null,
+prenume varchar2(30),
+grad varchar2(30),
+constraint pk_piloti primary key(id_pilot));
+
+
+create table insotitori (
+id_insotitor number(4),
+nume varchar2(30) constraint null_nume_insotitor not null,
+prenume varchar2(30),
+constraint pk_insotitori primary key(id_insotitor));
+
+
+create table echipaje_piloti (
+id_zbor number(4),
+id_pilot number(4),
+constraint pk_echipaj_piloti primary key(id_zbor, id_pilot),
+constraint fk_echipaj_piloti_zbor foreign key(id_zbor) references zboruri(id_zbor),
+constraint fk_echipaj_piloti_pilot foreign key(id_pilot) references piloti(id_pilot));
+
+
+create table echipaje_insotitori (
+id_zbor number(4),
+id_insotitor number(4),
+constraint pk_echipaj_insotitori primary key(id_zbor, id_insotitor),
+constraint fk_echipaj_insotitori_zbor foreign key(id_zbor) references zboruri(id_zbor),
+constraint fk_echipaj_insotitori_insotitor foreign key(id_insotitor) references insotitori(id_insotitor));
+
+
+create table clase (
+id_clasa number(4),
+nume varchar2(30),
+constraint pk_clase primary key(id_clasa),
+constraint unq_nume_clase unique(nume));
+
+
+create table locuri (
+id_loc number(4),
+id_zbor number(4),
+pret number(8,2) constraint null_pret not null,
+id_clasa number(4) constraint null_clasa not null,
+constraint pk_locuri primary key(id_loc, id_zbor),
+constraint fk_locuri_zbor foreign key(id_zbor) references zboruri(id_zbor),
+constraint fk_locuri_clasa foreign key(id_clasa) references clase(id_clasa));
+
+
+create table pasageri (
+id_pasager number(4),
+numar_id varchar2(20) constraint null_nr_id_pasageri not null,
+nume varchar2(30) constraint null_nume_pasageri not null,
+prenume varchar2(30),
+cetatenie varchar2(30) constraint null_cetatenie not null,
+data_nastere date,
+restrictie_meniu varchar2(30),
+constraint pk_pasageri primary key(id_pasager));
+
+
+create table clienti (
+id_client number(4),
+constraint pk_clienti primary key(id_client));
+
+
+create table persoane_fizice (
+id_persoana number(4),
+numar_id varchar2(30) constraint null_nr_id_pers not null,
+nume varchar2(30) constraint null_nume_pers not null,
+prenume varchar2(30),
+email varchar2(30),
+constraint pk_pers primary key(id_persoana),
+constraint fk_pers foreign key(id_persoana) references clienti(id_client));
+
+
+create table agentii_turism (
+id_agentie number(4),
+nume varchar2(30),
+constraint pk_agentii_turism primary key(id_agentie),
+constraint fk_agentii_turism foreign key(id_agentie) references clienti(id_client));
+
+
+create table reprezentanti_vanzari (
+id_reprezentant number(4),
+nume varchar2(30) constraint null_nume_reprez not null,
+prenume varchar2(30),
+constraint pk_reprez primary key(id_reprezentant),
+constraint fk_reprez foreign key(id_reprezentant) references clienti(id_client));
+
+
+create table rezervari (
+id_rezervare number(4),
+id_loc number(4) constraint null_loc not null,
+id_zbor number(4) constraint null_zbor not null,
+id_pasager number(4) constraint null_pasager not null,
+id_client number(4) constraint null_client not null,
+data_rezervare date default sysdate constraint null_data not null,
+constraint pk_rezervari primary key(id_rezervare),
+constraint fk_rezervari_loc_zbor foreign key(id_loc, id_zbor) references locuri(id_loc, id_zbor),
+constraint unq_loc_zbor unique(id_loc, id_zbor),
+constraint fk_rezervari_pasager foreign key(id_pasager) references pasageri(id_pasager),
+constraint fk_rezervari_client foreign key(id_client) references clienti(id_client));
+
+
+create table plati (
+id_plata number(4),
+id_rezervare number(4) constraint null_rez not null,
+tip_plata varchar2(30),
+constraint pk_plati primary key(id_plata),
+constraint fk_plati foreign key(id_rezervare) references rezervari(id_rezervare),
+constraint unq_rez unique(id_rezervare));
+
+
+create table check_in (
+id_check_in number(4),
+id_rezervare number(4) constraint null_rez1 not null,
+data_check_in date constraint null_data_check not null,
+constraint pk_check_in primary key(id_check_in),
+constraint fk_check_in foreign key(id_rezervare) references rezervari(id_rezervare),
+constraint unq_rez1 unique(id_rezervare));
+
+
+create table bagaje (
+id_bagaj number(4),
+id_check_in number(4) constraint null_check_in not null,
+greutate number(5, 2) constraint null_greutate not null,
+constraint pk_bagaje primary key(id_bagaj),
+constraint fk_bagaje foreign key(id_check_in) references check_in(id_check_in));
+
+
+
+-- modele avioane --
+create sequence secv_modele_avioane
+start with 1
+increment by 1
+minvalue 0
+maxvalue 100
+nocycle
+nocache;
+
+insert into modele_avioane
+values (secv_modele_avioane.nextval, 'Boeing 777', 12);
+insert into modele_avioane
+values (secv_modele_avioane.nextval, 'Airbus A340', 15);
+insert into modele_avioane
+values (secv_modele_avioane.nextval, 'Airbus A380', 20);
+insert into modele_avioane
+values (secv_modele_avioane.nextval, 'Boeing 757', 15);
+insert into modele_avioane
+values (secv_modele_avioane.nextval, 'Airbus A318', 12);
+insert into modele_avioane
+values (secv_modele_avioane.nextval, 'Airbus A320', 10);
+
+select * from modele_avioane;
+
+
+-- avioane --
+create sequence secv_avioane
+start with 0
+increment by 1
+minvalue 0
+maxvalue 99
+nocycle
+nocache;
+
+insert into avioane
+values (secv_avioane.nextval, '08-jan-19', 3); 
+insert into avioane
+values (secv_avioane.nextval, '12-mar-15', 0); 
+insert into avioane
+values (secv_avioane.nextval, '20-jun-16', 3); 
+insert into avioane
+values (secv_avioane.nextval, '04-oct-16', 4); 
+insert into avioane
+values (secv_avioane.nextval, '14-mar-18', 1); 
+
+select * from avioane;
+
+
+-- tari --
+insert into tari
+values (0, 'Romania');
+insert into tari
+values (1, 'Germania');
+insert into tari
+values (2, 'Italia');
+insert into tari
+values (3, 'Norvegia');
+insert into tari
+values (4, 'Franta');
+
+select * from tari;
+
+
+-- orase --
+insert into orase
+values (0, 'Bucuresti', 0);
+insert into orase
+values (1, 'Cluj-Napoca', 0);
+insert into orase
+values (2, 'Frankfurt', 1);
+insert into orase
+values (3, 'Munich', 1);
+insert into orase
+values (4, 'Trondheim', 3);
+
+select * from orase;
+
+
+-- aeroporturi --
+create sequence secv_aeroporturi
+start with 0
+increment by 1
+minvalue 0
+maxvalue 99
+nocycle
+nocache;
+
+insert into aeroporturi 
+values (secv_aeroporturi.nextval, 'Henri Coanda', 0);
+insert into aeroporturi 
+values (secv_aeroporturi.nextval, 'Aurel Vlaicu', 0);
+insert into aeroporturi 
+values (secv_aeroporturi.nextval, 'Avram Iancu', 1);
+insert into aeroporturi 
+values (secv_aeroporturi.nextval, null, 2);
+insert into aeroporturi 
+values (secv_aeroporturi.nextval, null, 3);
+
+select * from aeroporturi;
+
+
+-- zboruri --
+create sequence secv_zboruri
+start with 0
+increment by 1
+minvalue 0
+maxvalue 99
+nocycle
+nocache;
+
+insert into zboruri
+values (secv_zboruri.nextval, to_date('2019-oct-12 15:30', 'yyyy-mon-dd hh24:mi'), to_date('2019-oct-12 17:30', 'yyyy-mon-dd hh24:mi'), 1, 0, 3);
+insert into zboruri
+values (secv_zboruri.nextval, to_date('2019-dec-16 14:40', 'yyyy-mon-dd hh24:mi'), to_date('2019-dec-16 15:20', 'yyyy-mon-dd hh24:mi'), 0, 1, 2);
+insert into zboruri
+values (secv_zboruri.nextval, to_date('2020-feb-23 10:30', 'yyyy-mon-dd hh24:mi'), to_date('2020-feb-23 12:15', 'yyyy-mon-dd hh24:mi'), 2, 4, 2);
+insert into zboruri
+values (secv_zboruri.nextval, to_date('2020-apr-5 20:00', 'yyyy-mon-dd hh24:mi'), to_date('2020-apr-5 21:30', 'yyyy-mon-dd hh24:mi'), 3, 2, 0);
+insert into zboruri
+values (secv_zboruri.nextval, to_date('2021-jun-11 18:20', 'yyyy-mon-dd hh24:mi'), to_date('2021-jun-11 20:00', 'yyyy-mon-dd hh24:mi'), 4, 3, 1);
+
+select * from zboruri;
+
+
+-- piloti --
+create sequence secv_piloti
+start with 0
+increment by 1
+minvalue 0
+maxvalue 99
+nocycle
+nocache;
+
+insert into piloti
+values (secv_piloti.nextval, 'Albescu', 'Delia', 'pilot'); 
+insert into piloti
+values (secv_piloti.nextval, 'Lupei', 'Dan', 'pilot'); 
+insert into piloti
+values (secv_piloti.nextval, 'Albert', 'Andrei', 'copilot');
+insert into piloti
+values (secv_piloti.nextval, 'Grigorescu', 'Natalia', 'copilot');
+insert into piloti
+values (secv_piloti.nextval, 'Balan', 'Violeta', 'copilot');
+insert into piloti
+values (secv_piloti.nextval, 'Popescu', 'Luca', 'pilot');
+
+select * from piloti;
+
+
+-- insotitori --
+create sequence secv_insotitori
+start with 0
+increment by 1
+minvalue 0
+maxvalue 99
+nocycle
+nocache;
+
+insert into insotitori
+values (secv_insotitori.nextval, 'Vasile', 'Livia');
+insert into insotitori
+values (secv_insotitori.nextval, 'Solomon', 'Isabella');
+insert into insotitori
+values (secv_insotitori.nextval, 'Popescu', 'Ruxandra');
+insert into insotitori
+values (secv_insotitori.nextval, 'Ciobanu', 'Simon');
+insert into insotitori
+values (secv_insotitori.nextval, 'Constantin', 'Rares');
+insert into insotitori
+values (secv_insotitori.nextval, 'Ianos', 'Matei');
+
+select * from insotitori;
+
+
+-- echipaje_piloti --
+insert into echipaje_piloti
+values (0, 0); 
+insert into echipaje_piloti
+values (0, 2); 
+insert into echipaje_piloti
+values (1, 1); 
+insert into echipaje_piloti
+values (1, 2); 
+insert into echipaje_piloti
+values (2, 1); 
+insert into echipaje_piloti
+values (2, 3); 
+insert into echipaje_piloti
+values (3, 0); 
+insert into echipaje_piloti
+values (3, 4); 
+insert into echipaje_piloti
+values (4, 0); 
+insert into echipaje_piloti
+values (4, 3); 
+insert into echipaje_piloti
+values (4, 1);
+
+select * from echipaje_piloti;
+
+
+-- echipaje_insotitori --
+insert into echipaje_insotitori
+values (0, 0);
+insert into echipaje_insotitori
+values (1, 2);
+insert into echipaje_insotitori
+values (1, 3);
+insert into echipaje_insotitori
+values (1, 0);
+insert into echipaje_insotitori
+values (2, 4);
+insert into echipaje_insotitori
+values (2, 5);
+insert into echipaje_insotitori
+values (3, 1);
+insert into echipaje_insotitori
+values (3, 2);
+insert into echipaje_insotitori
+values (4, 0);
+insert into echipaje_insotitori
+values (4, 2);
+insert into echipaje_insotitori
+values (4, 4);
+
+select * from echipaje_insotitori;
+
+
+-- clase --
+insert into clase
+values (0, 'economy');
+insert into clase
+values (1, 'business');
+insert into clase
+values (2, 'intai');
+
+select * from clase;
+
+
+-- locuri --
+-- zbor 0 - avion 1 - tip avion 0 - 10 locuri
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (0, 40, 0, 0);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (1, 40, 0, 0);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (2, 50, 0, 0);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (3, 50, 0, 0);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (4, 50, 0, 0);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (5, 100, 1, 0);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (6, 100, 1, 0);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (7, 100, 1, 0);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (8, 110, 1, 0);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (9, 110, 1, 0);
+-- zbor 1 - avion 0 - tip avion 3 - 12 locuri
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (0, 40, 0, 1);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (1, 40, 0, 1);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (2, 40, 0, 1);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (3, 40, 0, 1);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (4, 45, 0, 1);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (5, 45, 0, 1);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (6, 90, 1, 1);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (7, 90, 1, 1);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (8, 95, 1, 1);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (9, 95, 1, 1);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (10, 200, 2, 1);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (11, 200, 2, 1);
+-- zbor 2 - avion 2 - tip avion 3 - 12 locuri
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (0, 60, 0, 2);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (1, 60, 0, 2);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (2, 60, 0, 2);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (3, 60, 0, 2);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (4, 70, 0, 2);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (5, 70, 0, 2);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (6, 180, 1, 2);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (7, 180, 1, 2);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (8, 180, 1, 2);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (9, 190, 1, 2);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (10, 350, 2, 2);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (11, 360, 2, 2);
+-- zbor 3 - avion 3 - tip avion 4 - 15 locuri
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (0, 35, 0, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (1, 35, 0, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (2, 35, 0, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (3, 35, 0, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (4, 35, 0, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (5, 40, 0, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (6, 40, 0, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (7, 40, 0, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (8, 70, 1, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (9, 70, 1, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (10, 70, 1, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (11, 80, 1, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (12, 180, 2, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (13, 180, 2, 3);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (14, 190, 2, 3);
+-- zbor 4 - avion 4 - tip avion 1 - 20 locuri
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (0, 40, 0, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (1, 40, 0, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (2, 40, 0, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (3, 40, 0, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (4, 40, 0, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (5, 40, 0, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (6, 40, 0, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (7, 45, 0, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (8, 45, 0, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (9, 45, 0, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (10, 100, 1, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (11, 100, 1, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (12, 100, 1, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (13, 110, 1, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (14, 110, 1, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (15, 300, 2, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (16, 300, 2, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (17, 300, 2, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (18, 320, 2, 4);
+insert into locuri(id_loc, pret, id_clasa, id_zbor)
+values (19, 320, 2, 4);
+
+select * from locuri;
+
+
+-- pasageri --
+insert into pasageri
+values (0, '2940619092726', 'Cojocaru', 'Bianca', 'Romania', '19-jun-1994', null); 
+insert into pasageri
+values (1, '2911119199676', 'Petrescu', 'Mihaela', 'Romania', '19-nov-1991', null); 
+insert into pasageri
+values (2, '6040302227314', 'Avram', 'Emma', 'Romania', '02-mar-2004', 'vegetarian'); 
+insert into pasageri
+values (3, '6030321346602', 'Marin', 'Laura', 'Romania', '21-mar-2003', null); 
+insert into pasageri
+values (4, '1951017453233', 'Dumitru', 'Mihai', 'Romania', '17-oct-1995', 'diabet'); 
+insert into pasageri
+values (5, '1940706334322', 'Neagu', 'Teodor', 'Romania', '06-jul-1994', null); 
+insert into pasageri
+values (6, '5030309072901', 'Aliu', 'Matei', 'Romania', '09-mar-2003', null); 
+insert into pasageri
+values (7, '5959JJNLC2', 'Rosenberger', 'Ivonne', 'Germania', '11-apr-1992', null); 
+insert into pasageri
+values (8, '1327M3YY51', 'Kuntz', 'Hilbert', 'Germania', '23-oct-1992', null); 
+insert into pasageri
+values (9, 'F8624KW3J6', 'Leitz', 'Josef', 'Germania', '01-aug-2005', 'vegetarian'); 
+insert into pasageri
+values (10, 'GE3082692', 'Trevisani', 'Damiana', 'Italia', '02-jan-1981', null); 
+insert into pasageri
+values (11, 'OY37373564', 'Milani', 'Uranio', 'Italia', '30-nov-1996', null); 
+insert into pasageri
+values (12, '6000130251658', 'Pop', 'Viorela', 'Romania', '30-jan-2000', null);
+insert into pasageri
+values (13, '1920202339852', 'Petrescu', 'Petre', 'Romania', '02-feb-1992', 'diabet');
+insert into pasageri
+values (14, '5010321063853', 'Ionescu', 'Ion', 'Romania', '21-mar-2001', null);
+insert into pasageri
+values (15, '2961126231259', 'Popescu', 'Sara', 'Romania', '26-nov-1996', null);
+
+select * from pasageri;
+
+
+-- clienti --
+create sequence secv_clienti
+start with 0
+increment by 1
+minvalue 0
+maxvalue 99
+nocycle
+nocache;
+
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+insert into clienti
+values (secv_clienti.nextval);
+
+select * from clienti;
+
+
+-- persoane fizice --
+insert into persoane_fizice
+values (0, '6000130251658', 'Pop', 'Viorela', 'pop.viorela@gmail.com');
+insert into persoane_fizice
+values (1, '1920202339852', 'Petrescu', 'Petre', 'petrescu.petre@gmail.com');
+insert into persoane_fizice
+values (2, '5010321063853', 'Ionescu', 'Ion', 'ionescu.ion@gmail.com');
+insert into persoane_fizice
+values (3, '2961126231259', 'Popescu', 'Sara', 'popescu.sara@gmail.com');
+insert into persoane_fizice
+values (7, '2940619092726', 'Cojocaru', 'Bianca', 'cojocaru.bianca@gmail.com'); 
+insert into persoane_fizice
+values (8, '2911119199676', 'Petrescu', 'Mihaela', 'petrescu.mihaela@gmail.com'); 
+insert into persoane_fizice
+values (9, '6040302227314', 'Avram', 'Emma', 'avram.emma@gmail.com'); 
+insert into persoane_fizice
+values (10, '6030321346602', 'Marin', 'Laura', 'marin.laura@gmail.com'); 
+insert into persoane_fizice
+values (11, '1951017453233', 'Dumitru', 'Mihai', 'dumitru.mihai@gmail.com'); 
+insert into persoane_fizice
+values (12, '5959JJNLC2', 'Rosenberger', 'Ivonne', 'rosenberger.ivonne@gmail.com'); 
+insert into persoane_fizice
+values (13, 'F8624KW3J6', 'Leitz', 'Josef', 'leitz.josef@gmail.com'); 
+insert into persoane_fizice
+values (14, 'GE3082692', 'Trevisani', 'Damiana', 'trevisani.damiana@gmail.com'); 
+
+select * from persoane_fizice;
+
+
+-- agentii turism --
+insert into agentii_turism
+values (4, 'Sunny Travel');
+insert into agentii_turism
+values (5, 'Dream Travel');
+
+select * from agentii_turism;
+
+
+-- reprezentanti vanzari --
+insert into reprezentanti_vanzari
+values (6, 'Stan', 'Carmen');
+
+select * from reprezentanti_vanzari;
+
+
+-- rezervari --
+-- zbor 0
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (0, to_date('2019-oct-05 15:00', 'yyyy-mon-dd hh24:mi'), 3, 0, 15, 3); 
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (1, to_date('2019-sep-12 10:40', 'yyyy-mon-dd hh24:mi'), 5, 0, 14, 2); 
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (2, to_date('2019-aug-03 19:50', 'yyyy-mon-dd hh24:mi'), 9, 0, 13, 1); 
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (3, to_date('2019-oct-10 23:20', 'yyyy-mon-dd hh24:mi'), 2, 0, 12, 0); 
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (4, to_date('2019-sep-24 04:10', 'yyyy-mon-dd hh24:mi'), 4, 0, 10, 4); 
+-- zbor 1
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (5, to_date('2019-dec-15 04:10', 'yyyy-mon-dd hh24:mi'), 0, 1, 0, 0);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (6, to_date('2019-dec-15 05:00', 'yyyy-mon-dd hh24:mi'), 2, 1, 9, 5); 
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (7, to_date('2019-dec-02 05:00', 'yyyy-mon-dd hh24:mi'), 3, 1, 10, 5);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (8, to_date('2019-dec-02 05:00', 'yyyy-mon-dd hh24:mi'), 5, 1, 4, 5);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (9, to_date('2019-nov-06 23:50', 'yyyy-mon-dd hh24:mi'), 11, 1, 4, 11);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (10, to_date('2019-nov-02 14:00', 'yyyy-mon-dd hh24:mi'), 7, 1, 2, 6);
+-- zbor 2
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (11, to_date('2020-feb-23 01:00', 'yyyy-mon-dd hh24:mi'), 0, 2, 1, 6);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (12, to_date('2020-jan-20 04:00', 'yyyy-mon-dd hh24:mi'), 8, 2, 3, 6);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (13, to_date('2020-jan-04 20:00', 'yyyy-mon-dd hh24:mi'), 11, 2, 6, 5);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (14, to_date('2020-jan-04 20:00', 'yyyy-mon-dd hh24:mi'), 10, 2, 5, 5);
+-- zbor 3
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (15, to_date('2020-apr-01 20:00', 'yyyy-mon-dd hh24:mi'), 9, 3, 11, 14);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (16, to_date('2020-apr-01 20:20', 'yyyy-mon-dd hh24:mi'), 10, 3, 12, 14);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (17, to_date('2020-apr-01 20:00', 'yyyy-mon-dd hh24:mi'), 3, 3, 2, 9);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (18, to_date('2020-feb-20 15:00', 'yyyy-mon-dd hh24:mi'), 5, 3, 3, 10);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (19, to_date('2020-mar-12 16:00', 'yyyy-mon-dd hh24:mi'), 12, 3, 7, 12);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (20, to_date('2020-mar-12 18:00', 'yyyy-mon-dd hh24:mi'), 13, 3, 8, 12);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (21, to_date('2020-feb-14 21:00', 'yyyy-mon-dd hh24:mi'), 7, 3, 0, 7);
+-- zbor 4
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (22, to_date('2021-jun-11 00:00', 'yyyy-mon-dd hh24:mi'), 5, 4, 6, 0);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (23, to_date('2021-apr-20 16:00', 'yyyy-mon-dd hh24:mi'), 10, 4, 5, 5);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (24, to_date('2021-apr-20 16:30', 'yyyy-mon-dd hh24:mi'), 11, 4, 7, 5);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (25, to_date('2021-apr-20 18:00', 'yyyy-mon-dd hh24:mi'), 12, 4, 8, 5);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (26, to_date('2021-may-03 12:00', 'yyyy-mon-dd hh24:mi'), 3, 4, 14, 4);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (27, to_date('2021-may-03 13:00', 'yyyy-mon-dd hh24:mi'), 4, 4, 15, 4);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (28, to_date('2021-jun-10 11:00', 'yyyy-mon-dd hh24:mi'), 2, 4, 12, 6);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (29, to_date('2021-mar-25 19:00', 'yyyy-mon-dd hh24:mi'), 18, 4, 11, 13);
+insert into rezervari(id_rezervare, data_rezervare, id_loc, id_zbor, id_pasager, id_client)
+values (30, to_date('2021-mar-10 13:00', 'yyyy-mon-dd hh24:mi'), 17, 4, 1, 8);
+
+select * from rezervari;
+
+
+-- plati --
+create sequence secv_plati
+start with 0
+increment by 1
+minvalue 0
+maxvalue 99
+nocycle
+nocache;
+
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 0);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 1);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'transfer bancar', 2);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 3);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 4);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 5);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 6);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 7);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'transfer bancar', 8);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'transfer bancar', 9);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'transfer bancar', 10);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'transfer bancar', 11);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 12);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 13);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 14);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 15);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 16);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 17);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 18);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 19);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'transfer bancar', 20);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'transfer bancar', 21);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'transfer bancar', 22);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 23);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 24);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 25);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 26);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 27);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 28);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 29);
+insert into plati(id_plata, tip_plata, id_rezervare)
+values (secv_plati.nextval, 'online', 30);
+
+select * from plati;
+
+
+-- check_in --
+create sequence secv_check
+start with 0
+increment by 1
+minvalue 0
+maxvalue 99
+nocycle
+nocache;
+
+-- zbor 0
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2019-oct-19 15:10', 'yyyy-mon-dd hh24:mi'), 0);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2019-oct-19 14:30', 'yyyy-mon-dd hh24:mi'), 1);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2019-oct-19 12:00', 'yyyy-mon-dd hh24:mi'), 2);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2019-oct-19 13:30', 'yyyy-mon-dd hh24:mi'), 3);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2019-oct-19 15:00', 'yyyy-mon-dd hh24:mi'), 4);
+-- zbor 1
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2019-dec-16 14:30', 'yyyy-mon-dd hh24:mi'), 5);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2019-dec-16 13:30', 'yyyy-mon-dd hh24:mi'), 7);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2019-dec-16 12:30', 'yyyy-mon-dd hh24:mi'), 8);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2019-dec-16 13:00', 'yyyy-mon-dd hh24:mi'), 10);
+-- zbor 2
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2020-feb-23 10:10', 'yyyy-mon-dd hh24:mi'), 11);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2020-feb-23 08:00', 'yyyy-mon-dd hh24:mi'), 13);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2020-feb-23 09:30', 'yyyy-mon-dd hh24:mi'), 14);
+-- zbor 3
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2020-apr-5 19:00', 'yyyy-mon-dd hh24:mi'), 15);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2020-apr-5 19:30', 'yyyy-mon-dd hh24:mi'), 16);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2020-apr-5 18:00', 'yyyy-mon-dd hh24:mi'), 18);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2020-apr-5 16:20', 'yyyy-mon-dd hh24:mi'), 19);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2020-apr-5 19:00', 'yyyy-mon-dd hh24:mi'), 20);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2020-apr-5 19:20', 'yyyy-mon-dd hh24:mi'), 21);
+-- zbor 4
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2021-jun-11 18:00', 'yyyy-mon-dd hh24:mi'), 22);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2021-jun-11 15:00', 'yyyy-mon-dd hh24:mi'), 23);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2021-jun-11 14:00', 'yyyy-mon-dd hh24:mi'), 25);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2021-jun-11 17:30', 'yyyy-mon-dd hh24:mi'), 26);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2021-jun-11 18:10', 'yyyy-mon-dd hh24:mi'), 27);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2021-jun-11 14:30', 'yyyy-mon-dd hh24:mi'), 29);
+insert into check_in(id_check_in, data_check_in, id_rezervare)
+values (secv_check.nextval, to_date('2021-jun-11 15:00', 'yyyy-mon-dd hh24:mi'), 30);
+
+select * from check_in;
+
+
+-- bagaje --
+create sequence secv_bagaje
+start with 0
+increment by 1
+minvalue 0
+maxvalue 99
+nocycle
+nocache;
+
+insert into bagaje(id_bagaj, greutate, id_check_in)
+values (secv_bagaje.nextval, 20, 1);
+insert into bagaje(id_bagaj, greutate, id_check_in)
+values (secv_bagaje.nextval, 10, 2);
+insert into bagaje(id_bagaj, greutate, id_check_in)
+values (secv_bagaje.nextval, 25, 2);
+insert into bagaje(id_bagaj, greutate, id_check_in)
+values (secv_bagaje.nextval, 20, 3);
+insert into bagaje(id_bagaj, greutate, id_check_in)
+values (secv_bagaje.nextval, 15, 12);
+insert into bagaje(id_bagaj, greutate, id_check_in)
+values (secv_bagaje.nextval, 10, 17);
+insert into bagaje(id_bagaj, greutate, id_check_in)
+values (secv_bagaje.nextval, 10, 18);
+insert into bagaje(id_bagaj, greutate, id_check_in)
+values (secv_bagaje.nextval, 20, 21);
+insert into bagaje(id_bagaj, greutate, id_check_in)
+values (secv_bagaje.nextval, 5, 21);
+insert into bagaje(id_bagaj, greutate, id_check_in)
+values (secv_bagaje.nextval, 10, 5);
+
+select * from bagaje;
+
+
+
+-- 6
+create or replace procedure p6(v_nr in number, v_max in number) is
+    type t_imbricat is table of bagaje%rowtype;
+    t_bagaje t_imbricat := t_imbricat();
+    type t_indexat is table of t_imbricat index by pls_integer;
+    t_bagaje_zboruri t_indexat;
+    type vector is varray(10) of zboruri.id_zbor%type;
+    t_zboruri vector := vector();
+        
+begin
+    for i in 1..v_nr loop
+        t_zboruri.extend;
+    end loop;
+        
+    select id_zbor
+    bulk collect into t_zboruri
+    from zboruri
+    where rownum <= v_nr
+    order by id_zbor;
+        
+    dbms_output.put_line('Inainte de actualizare: ');
+    for i in 1..v_nr loop
+        dbms_output.put_line('Id zbor: ' || t_zboruri(i));
+        select b.id_bagaj, b.id_check_in, b.greutate
+        bulk collect into t_bagaje
+        from bagaje b, check_in c, rezervari r
+        where b.id_check_in = c.id_check_in
+        and c.id_rezervare = r.id_rezervare
+        and r.id_zbor = t_zboruri(i);
+        
+        t_bagaje_zboruri(t_zboruri(i)) := t_bagaje;
+        if sql%rowcount = 0 then 
+            dbms_output.put_line('Nu are bagaje');
+        else
+            for j in t_bagaje_zboruri(t_zboruri(i)).first .. t_bagaje_zboruri(t_zboruri(i)).last loop
+                dbms_output.put_line('Id bagaj: ' || t_bagaje_zboruri(t_zboruri(i))(j).id_bagaj ||
+                                     ', Id check-in: ' || t_bagaje_zboruri(t_zboruri(i))(j).id_check_in ||
+                                     ', Greutate: ' || t_bagaje_zboruri(t_zboruri(i))(j).greutate);
+            end loop;
+        end if;
+        t_bagaje.delete;
+    end loop;
+        
+    for i in 1..v_nr loop
+        if t_bagaje_zboruri(t_zboruri(i)).count > 0 then
+            for j in t_bagaje_zboruri(t_zboruri(i)).first .. t_bagaje_zboruri(t_zboruri(i)).last loop
+                if t_bagaje_zboruri(t_zboruri(i))(j).greutate > v_max then
+                    t_bagaje_zboruri(t_zboruri(i))(j).greutate := v_max;
+                    update bagaje
+                    set greutate = v_max
+                    where id_bagaj = t_bagaje_zboruri(t_zboruri(i))(j).id_bagaj;
+                end if;
+            end loop;
+        end if;
+    end loop;
+        
+    dbms_output.put_line('Dupa actualizare: ');
+    for i in 1..v_nr loop
+        dbms_output.put_line('Id zbor: ' || t_zboruri(i));
+        if t_bagaje_zboruri(t_zboruri(i)).count > 0 then
+            for j in t_bagaje_zboruri(t_zboruri(i)).first .. t_bagaje_zboruri(t_zboruri(i)).last loop
+                dbms_output.put_line('Id bagaj: ' || t_bagaje_zboruri(t_zboruri(i))(j).id_bagaj ||
+                                     ', Id check-in: ' || t_bagaje_zboruri(t_zboruri(i))(j).id_check_in ||
+                                     ', Greutate: ' || t_bagaje_zboruri(t_zboruri(i))(j).greutate);
+            end loop;
+        else
+            dbms_output.put_line('Nu are bagaje');
+        end if;
+    end loop;
+end p6;
+/
+
+begin
+    p6(3, 12);
+end;
+/
+
+
+-- 7
+create or replace procedure p7(v_nr_min in number) is
+    cursor c_piloti is
+        select p.id_pilot, p.nume, count(*)
+        from piloti p, echipaje_piloti e
+        where p.id_pilot = e.id_pilot
+        group by p.id_pilot, p.nume
+        having count(*) >= v_nr_min;
+            
+    cursor c_zboruri(v_id_pilot piloti.id_pilot%type) is
+        select z.id_zbor id_zbor,  m.nume_model nume_model
+        from piloti p, echipaje_piloti e, zboruri z, avioane a, modele_avioane m
+        where p.id_pilot = v_id_pilot
+        and p.id_pilot = e.id_pilot
+        and e.id_zbor = z.id_zbor
+        and z.id_avion = a.id_avion
+        and a.id_model = m.id_model;
+            
+    v_id_pilot piloti.id_pilot%type;
+    v_nume piloti.nume%type;
+    v_nr_zboruri number;
+            
+begin
+    open c_piloti;
+    loop
+        fetch c_piloti into v_id_pilot, v_nume, v_nr_zboruri;
+        exit when c_piloti%notfound;
+        dbms_output.put_line('Pilotul cu id-ul ' || v_id_pilot || ' si numele ' || v_nume || 'a participat la ' || v_nr_zboruri || ' zboruri:');
+        for c in c_zboruri(v_id_pilot) loop
+            dbms_output.put_line('- zborul ' || c.id_zbor || ' cu modelul de avion ' || c.nume_model);
+        end loop;
+        dbms_output.new_line;
+    end loop;
+    close c_piloti;
+end p7;
+/
+
+
+begin
+    p7(2);
+end;
+/
+
+
+-- 8
+create or replace function f8(v_nume_oras orase.nume%type, v_proc number, v_pret locuri.pret%type) return number is
+    v_id_zbor zboruri.id_zbor%type;
+    v_nr number;
+    e_procent_invalid exception;
+    e_pret_invalid exception;
+    e_fara_locuri exception;
+    
+begin
+    if v_proc <= 0 or v_proc >= 100 then
+        raise e_procent_invalid;
+    end if;
+        
+    if v_pret <= 0 then
+        raise e_pret_invalid;
+    end if;
+        
+    select z.id_zbor
+    into v_id_zbor
+    from zboruri z, aeroporturi a, orase o
+    where o.nume = v_nume_oras
+    and o.id_oras = a.id_oras
+    and a.id_aeroport = z.id_aeroport_sosire;
+        
+    begin
+        v_nr := 0;
+        for c in (select id_loc loc
+                  from locuri l
+                  where l.id_zbor = v_id_zbor
+                  and l.pret >= v_pret
+                  and not exists (select 1
+                                  from rezervari r
+                                  where r.id_zbor = l.id_zbor
+                                  and r.id_loc = l.id_loc)) loop
+            update locuri
+            set pret = pret - v_proc/100 * pret
+            where id_loc = c.loc;
+                
+            v_nr := v_nr + 1;
+        end loop;
+            
+        if v_nr = 0 then
+            raise e_fara_locuri;
+        end if;
+            
+        return v_nr;
+    end;
+exception 
+    when no_data_found then raise_application_error(-20000, 'Nu exista niciun zbor care ajunge in acest oras');
+    when too_many_rows then raise_application_error(-20001, 'Exista mai multe zboruri care ajung in acest oras');
+    when e_procent_invalid then raise_application_error(-20002, 'Procent invalid: ' || v_proc);
+    when e_pret_invalid then raise_application_error(-20003, 'Pret invalid: ' || v_pret);
+    when e_fara_locuri then raise_application_error(-20004, 'Nu exista niciun loc nerezervat cu pret mai mare sau egal decat pretul dat');
+end f8;
+/
+
+begin
+    dbms_output.put_line(f8('Frankfurt', 20, 1000)); 
+end;
+/
+
+-- dbms_output.put_line(f8('Trondheim', 20, 80));
+-- dbms_output.put_line(f8('Bucuresti', 20, 80)); 
+-- dbms_output.put_line(f8('Frankfurt', 120, 80)); 
+-- dbms_output.put_line(f8('Frankfurt', 20, -80)); 
+-- dbms_output.put_line(f8('Frankfurt', 20, 1000)); 
+-- dbms_output.put_line(f8('Frankfurt', 20, 80)); 
+
+
+-- 9
+create or replace procedure p9 (v_nume in pasageri.nume%type, v_tara in tari.nume%type, v_clasa in clase.nume%type, v_nr out number) is
+     v_id_pasager pasageri.id_pasager%type;
+     v_ok number;
+begin
+    begin
+        select id_pasager
+        into v_id_pasager
+        from pasageri
+        where lower(nume) = lower(v_nume);
+    exception
+        when no_data_found then raise_application_error(-20000, 'Nu exista niciun pasager cu acest nume');
+        when too_many_rows then raise_application_error(-20001, 'Exista mai multi pasageri cu acest nume');
+    end;
+        
+    begin
+        select 1
+        into v_ok
+        from tari
+        where lower(nume) = lower(v_tara);
+    exception
+        when no_data_found then raise_application_error(-20002, 'Nu exista nicio tara cu acest nume');
+    end;
+        
+    begin
+        select 1
+        into v_ok
+        from clase
+        where lower(nume) = lower(v_clasa);
+    exception
+        when no_data_found then raise_application_error(-20003, 'Nu exista nicio clasa cu acest nume');
+    end;
+            
+    select count(r.id_pasager)
+    into v_nr
+    from rezervari r, locuri l, clase c, zboruri z, aeroporturi a, orase o, tari t
+    where r.id_pasager = v_id_pasager
+    and lower(c.nume) = lower(v_clasa)
+    and lower(t.nume) = lower(v_tara)
+    and r.id_zbor = l.id_zbor
+    and r.id_loc = l.id_loc
+    and l.id_clasa = c.id_clasa
+    and l.id_zbor = z.id_zbor
+    and z.id_aeroport_plecare = a.id_aeroport
+    and a.id_oras = o.id_oras
+    and o.id_tara = t.id_tara
+    group by r.id_pasager;
+    
+exception
+    when no_data_found then v_nr := 0;
+end p9;
+/
+
+declare
+    v_nr number;
+begin
+    p9('Cojocaru', 'Romania', 'Economy', v_nr);
+    dbms_output.put_line(v_nr || ' zboruri');
+end;
+/
+
+-- p9('Petrescu', 'Germania', 'Economy', v_nr);
+-- p9('Cojocaru', 'Grecia', 'Economy', v_nr);
+-- p9('Cojocaru', 'Germania', 'Nume', v_nr);
+-- p9('Cojocaru', 'Germania', 'Economy', v_nr);
+-- p9('Cojocaru', 'Romania', 'Economy', v_nr);
+
+
+-- 10
+create or replace trigger trig10
+    before insert or update or delete on pasageri
+begin
+    if (to_char(sysdate, 'D') in (1, 7)) or (to_char(sysdate, 'HH24') not between 9 and 17) then
+        raise_application_error(-20001, 'Tabelul pasageri nu poate fi schimbat decat de luni pana vineri in intervalul 9-18');
+    end if;
+end;
+/
+
+insert into pasageri
+values(16, '2961126231255', 'Popescu', 'Sara', 'Romania', '26-nov-1996', null);
+
+
+-- 11
+create table info_zboruri (
+    id_info number(4),
+    pret_total number(10),
+    constraint pk_info_zboruri primary key(id_info)
+);
+
+create or replace procedure modific_info (v_id_zbor info_zboruri.id_info%type, v_pret locuri.pret%type) as
+begin
+    update info_zboruri
+    set pret_total = nvl(pret_total, 0) + v_pret
+    where id_info = v_id_zbor;
+end;
+/
+
+create or replace trigger trig11
+    after delete or update or insert of pret on locuri
+    for each row
+begin
+    if deleting then
+        modific_info(:old.id_zbor, -1 * :old.pret);
+    elsif updating then
+        modific_info(:old.id_zbor, :new.pret - :old.pret);
+    else
+        modific_info(:new.id_zbor, :new.pret);
+    end if;
+end;
+/
+
+insert into info_zboruri
+values (0, 719);
+insert into info_zboruri
+values (1, 1020);
+insert into info_zboruri
+values (2, 1820);
+insert into info_zboruri
+values (3, 1135);
+insert into info_zboruri
+values (4, 2475);
+
+-- sterg un loc
+delete from locuri
+where id_zbor = 4
+and id_loc = 19;
+
+-- modific pretul unui loc
+update locuri
+set pret = pret + 100
+where id_zbor = 4
+and id_loc = 19;
+
+-- adaug un loc
+insert into locuri
+values (20, 4, 200, 1);
+
+
+-- 12
+create table rezervari2 (
+    id number(4)
+);
+
+create or replace type lista_tabele as table of varchar2(30);
+
+create or replace trigger trig12
+before drop on schema
+declare
+    v_tabele lista_tabele := lista_tabele('REZERVARI2', 'CHECK_IN', 'PLATI');
+begin
+    for i in 1..v_tabele.count loop
+        if ora_dict_obj_type = 'TABLE' and ora_dict_obj_name = v_tabele(i) then
+            raise_application_error(-20001, 'Tabelul ' || v_tabele(i) || ' nu poate fi sters');
+        end if;
+    end loop;
+end;
+/
+
+drop table rezervari2;
+
+
+-- 13
+create or replace package pachet13 as
+    procedure p6(v_nr in number, v_max in number);
+    procedure p7(v_nr_min in number);
+    function f8(v_nume_oras orase.nume%type, v_proc number, v_pret locuri.pret%type) return number;
+    procedure p9(v_nume in pasageri.nume%type, v_tara in tari.nume%type, v_clasa in clase.nume%type, v_nr out number);
+end pachet13;
+/
+
+
+create or replace package body pachet13 as
+    -- 6 ---------------------------------------------------------------------------------
+    procedure p6(v_nr in number, v_max in number) is
+        type t_imbricat is table of bagaje%rowtype;
+        t_bagaje t_imbricat := t_imbricat();
+        type t_indexat is table of t_imbricat index by pls_integer;
+        t_bagaje_zboruri t_indexat;
+        type vector is varray(10) of zboruri.id_zbor%type;
+        t_zboruri vector := vector();
+        
+    begin
+        for i in 1..v_nr loop
+            t_zboruri.extend;
+        end loop;
+            
+        select id_zbor
+        bulk collect into t_zboruri
+        from zboruri
+        where rownum <= v_nr
+        order by id_zbor;
+            
+        dbms_output.put_line('Inainte de actualizare: ');
+        for i in 1..v_nr loop
+            dbms_output.put_line('Id zbor: ' || t_zboruri(i));
+            select b.id_bagaj, b.id_check_in, b.greutate
+            bulk collect into t_bagaje
+            from bagaje b, check_in c, rezervari r
+            where b.id_check_in = c.id_check_in
+            and c.id_rezervare = r.id_rezervare
+            and r.id_zbor = t_zboruri(i);
+            
+            t_bagaje_zboruri(t_zboruri(i)) := t_bagaje;
+            if sql%rowcount = 0 then 
+                dbms_output.put_line('Nu are bagaje');
+            else
+                for j in t_bagaje_zboruri(t_zboruri(i)).first .. t_bagaje_zboruri(t_zboruri(i)).last loop
+                    dbms_output.put_line('Id bagaj: ' || t_bagaje_zboruri(t_zboruri(i))(j).id_bagaj ||
+                                         ', Id check-in: ' || t_bagaje_zboruri(t_zboruri(i))(j).id_check_in ||
+                                         ', Greutate: ' || t_bagaje_zboruri(t_zboruri(i))(j).greutate);
+                end loop;
+            end if;
+            t_bagaje.delete;
+        end loop;
+            
+        for i in 1..v_nr loop
+            if t_bagaje_zboruri(t_zboruri(i)).count > 0 then
+                for j in t_bagaje_zboruri(t_zboruri(i)).first .. t_bagaje_zboruri(t_zboruri(i)).last loop
+                    if t_bagaje_zboruri(t_zboruri(i))(j).greutate > v_max then
+                        t_bagaje_zboruri(t_zboruri(i))(j).greutate := v_max;
+                        update bagaje
+                        set greutate = v_max
+                        where id_bagaj = t_bagaje_zboruri(t_zboruri(i))(j).id_bagaj;
+                    end if;
+                end loop;
+            end if;
+        end loop;
+            
+        dbms_output.put_line('Dupa actualizare: ');
+        for i in 1..v_nr loop
+            dbms_output.put_line('Id zbor: ' || t_zboruri(i));
+            if t_bagaje_zboruri(t_zboruri(i)).count > 0 then
+                for j in t_bagaje_zboruri(t_zboruri(i)).first .. t_bagaje_zboruri(t_zboruri(i)).last loop
+                    dbms_output.put_line('Id bagaj: ' || t_bagaje_zboruri(t_zboruri(i))(j).id_bagaj ||
+                                         ', Id check-in: ' || t_bagaje_zboruri(t_zboruri(i))(j).id_check_in ||
+                                         ', Greutate: ' || t_bagaje_zboruri(t_zboruri(i))(j).greutate);
+                end loop;
+            else
+                dbms_output.put_line('Nu are bagaje');
+            end if;
+        end loop;
+    end p6;
+    
+    
+    -- 7 ---------------------------------------------------------------------------------
+    procedure p7(v_nr_min in number) is
+        cursor c_piloti is
+            select p.id_pilot, p.nume, count(*)
+            from piloti p, echipaje_piloti e
+            where p.id_pilot = e.id_pilot
+            group by p.id_pilot, p.nume
+            having count(*) >= v_nr_min;
+            
+        cursor c_zboruri(v_id_pilot piloti.id_pilot%type) is
+            select z.id_zbor id_zbor,  m.nume_model nume_model
+            from piloti p, echipaje_piloti e, zboruri z, avioane a, modele_avioane m
+            where p.id_pilot = v_id_pilot
+            and p.id_pilot = e.id_pilot
+            and e.id_zbor = z.id_zbor
+            and z.id_avion = a.id_avion
+            and a.id_model = m.id_model;
+            
+        v_id_pilot piloti.id_pilot%type;
+        v_nume piloti.nume%type;
+        v_nr_zboruri number;
+            
+    begin
+        open c_piloti;
+        loop
+            fetch c_piloti into v_id_pilot, v_nume, v_nr_zboruri;
+            exit when c_piloti%notfound;
+            dbms_output.put_line('Pilotul cu id-ul ' || v_id_pilot || ' si numele ' || v_nume || 'a participat la ' || v_nr_zboruri || ' zboruri:');
+            for c in c_zboruri(v_id_pilot) loop
+                dbms_output.put_line('- zborul ' || c.id_zbor || ' cu modelul de avion ' || c.nume_model);
+            end loop;
+            dbms_output.new_line;
+        end loop;
+        close c_piloti;
+    end p7;
+    
+    
+    -- 8 ---------------------------------------------------------------------------------
+    function f8(v_nume_oras orase.nume%type, v_proc number, v_pret locuri.pret%type) return number is
+        v_id_zbor zboruri.id_zbor%type;
+        v_nr number;
+        e_procent_invalid exception;
+        e_pret_invalid exception;
+        e_fara_locuri exception;
+        
+    begin
+        if v_proc <= 0 or v_proc >= 100 then
+            raise e_procent_invalid;
+        end if;
+            
+        if v_pret <= 0 then
+            raise e_pret_invalid;
+        end if;
+            
+        select z.id_zbor
+        into v_id_zbor
+        from zboruri z, aeroporturi a, orase o
+        where o.nume = v_nume_oras
+        and o.id_oras = a.id_oras
+        and a.id_aeroport = z.id_aeroport_sosire;
+            
+        begin
+            v_nr := 0;
+            for c in (select id_loc loc
+                      from locuri l
+                      where l.id_zbor = v_id_zbor
+                      and l.pret >= v_pret
+                      and not exists (select 1
+                                      from rezervari r
+                                      where r.id_zbor = l.id_zbor
+                                      and r.id_loc = l.id_loc)) loop
+                update locuri
+                set pret = pret - v_proc/100 * pret
+                where id_loc = c.loc;
+                    
+                v_nr := v_nr + 1;
+            end loop;
+                
+            if v_nr = 0 then
+                raise e_fara_locuri;
+            end if;
+                
+            return v_nr;
+        end;
+    exception 
+        when no_data_found then raise_application_error(-20000, 'Nu exista niciun zbor care ajunge in acest oras');
+        when too_many_rows then raise_application_error(-20001, 'Exista mai multe zboruri care ajung in acest oras');
+        when e_procent_invalid then raise_application_error(-20002, 'Procent invalid: ' || v_proc);
+        when e_pret_invalid then raise_application_error(-20003, 'Pret invalid: ' || v_pret);
+        when e_fara_locuri then raise_application_error(-20004, 'Nu exista niciun loc nerezervat cu pret mai mare sau egal decat pretul dat');
+    end f8;
+    
+    
+    -- 9 ---------------------------------------------------------------------------------
+    procedure p9
+        (v_nume in pasageri.nume%type, v_tara in tari.nume%type, v_clasa in clase.nume%type, v_nr out number) is
+        v_id_pasager pasageri.id_pasager%type;
+        v_ok number;
+    begin
+        begin
+            select id_pasager
+            into v_id_pasager
+            from pasageri
+            where lower(nume) = lower(v_nume);
+        exception
+            when no_data_found then raise_application_error(-20000, 'Nu exista niciun pasager cu acest nume');
+            when too_many_rows then raise_application_error(-20001, 'Exista mai multi pasageri cu acest nume');
+        end;
+        
+        begin
+            select 1
+            into v_ok
+            from tari
+            where lower(nume) = lower(v_tara);
+        exception
+            when no_data_found then raise_application_error(-20002, 'Nu exista nicio tara cu acest nume');
+        end;
+        
+        begin
+            select 1
+            into v_ok
+            from clase
+            where lower(nume) = lower(v_clasa);
+        exception
+            when no_data_found then raise_application_error(-20003, 'Nu exista nicio clasa cu acest nume');
+        end;
+            
+        select count(r.id_pasager)
+        into v_nr
+        from rezervari r, locuri l, clase c, zboruri z, aeroporturi a, orase o, tari t
+        where r.id_pasager = v_id_pasager
+        and lower(c.nume) = lower(v_clasa)
+        and lower(t.nume) = lower(v_tara)
+        and r.id_zbor = l.id_zbor
+        and r.id_loc = l.id_loc
+        and l.id_clasa = c.id_clasa
+        and l.id_zbor = z.id_zbor
+        and z.id_aeroport_plecare = a.id_aeroport
+        and a.id_oras = o.id_oras
+        and o.id_tara = t.id_tara
+        group by r.id_pasager;
+    
+    exception
+        when no_data_found then v_nr := 0;
+    end p9;
+    
+end pachet13;
+/
+
+
+-- apelare
+declare
+    v_nr number;
+begin
+    pachet13.p9('Cojocaru', 'Romania', 'Economy', v_nr);
+    dbms_output.put_line(v_nr || ' zboruri');
+end;
+/
+
+-- pachet13.p6(3, 12);
+-- pachet13.p7(2);
+-- dbms_output.put_line(pachet13.f8('Frankfurt', 20, 80)); 
+-- pachet13.p9('Cojocaru', 'Romania', 'Economy', v_nr);
+-- dbms_output.put_line(v_nr || ' zboruri');
+
+
+-- 14
+create or replace package pachet14 as
+    type zbor_record is record (
+        data_plecare zboruri.data_plecare%type,
+        data_sosire zboruri.data_sosire%type,
+        id_avion zboruri.id_avion%type,
+        id_aeroport_plecare zboruri.id_aeroport_plecare%type,
+        id_aeroport_sosire zboruri.id_aeroport_sosire%type
+    );
+    
+    cursor c_piloti(v_nr number) return piloti%rowtype;
+    
+    type tablou_imbricat is table of echipaje_piloti%rowtype;
+    t_echipaj_piloti tablou_imbricat := tablou_imbricat();
+
+    function f_inserare_zbor(v_zbor in zbor_record) return zboruri.id_zbor%type;
+    function f_ultimul_zbor return zboruri.id_zbor%type;
+    function f_pret(v_id_zbor zboruri.id_zbor%type) return locuri.pret%type;
+    function f_nr_locuri(v_id_avion zboruri.id_avion%type) return modele_avioane.nr_locuri%type;
+    procedure p_inserare_locuri(v_id_zbor in zboruri.id_zbor%type, v_pret in locuri.pret%type, 
+                                v_id_clasa in locuri.id_clasa%type, v_nr_locuri in modele_avioane.nr_locuri%type);
+    procedure p_t_echipaj_piloti(v_id_zbor in zboruri.id_zbor%type, v_id_pilot in piloti.id_pilot%type, 
+                                 v_t_echipaj_piloti in out tablou_imbricat);
+    procedure p_inserare_echipaj_piloti(v_t_echipaj_piloti in tablou_imbricat);
+end pachet14;
+/
+
+
+create or replace package body pachet14 as
+
+    cursor c_piloti(v_nr number) return piloti%rowtype is
+        select *
+        from piloti
+        where id_pilot in (select *
+                           from (select id_pilot
+                                 from echipaje_piloti
+                                 group by id_pilot
+                                 order by count(*), nume)
+                            where rownum <= v_nr);
+
+
+    function f_inserare_zbor(v_zbor in zbor_record) return zboruri.id_zbor%type is
+        v_id_zbor zboruri.id_zbor%type;
+    begin
+        v_id_zbor := secv_zboruri.nextval;
+        insert into zboruri
+        values (v_id_zbor, v_zbor.data_plecare, v_zbor.data_sosire, v_zbor.id_avion, v_zbor.id_aeroport_plecare, v_zbor.id_aeroport_sosire);
+        return v_id_zbor;
+    end f_inserare_zbor;
+    
+    
+    function f_ultimul_zbor return zboruri.id_zbor%type is
+        v_id_zbor zboruri.id_zbor%type;
+    begin
+        select id_zbor
+        into v_id_zbor
+        from zboruri
+        where data_plecare = (select max(data_plecare)
+                              from zboruri);
+        return v_id_zbor;
+    end f_ultimul_zbor;
+    
+    
+    function f_pret(v_id_zbor zboruri.id_zbor%type) return locuri.pret%type is
+        v_pret locuri.pret%type;
+    begin
+        select avg(pret)
+        into v_pret
+        from locuri
+        where id_zbor = v_id_zbor;
+        return v_pret;
+    end f_pret;
+    
+    
+    function f_nr_locuri(v_id_avion zboruri.id_avion%type) return modele_avioane.nr_locuri%type is
+        v_nr modele_avioane.nr_locuri%type;
+    begin
+        select m.nr_locuri
+        into v_nr
+        from modele_avioane m, avioane a
+        where m.id_model = a.id_model
+        and a.id_avion = v_id_avion;
+        return v_nr;
+    end f_nr_locuri;
+    
+    
+    procedure p_inserare_locuri(v_id_zbor in zboruri.id_zbor%type, v_pret in locuri.pret%type, 
+                                v_id_clasa in locuri.id_clasa%type, v_nr_locuri in modele_avioane.nr_locuri%type) is
+    begin
+        for i in 0..v_nr_locuri-1 loop
+            insert into locuri
+            values(i, v_id_zbor, v_pret, v_id_clasa);
+        end loop;
+    end p_inserare_locuri;
+    
+    
+    procedure p_t_echipaj_piloti(v_id_zbor in zboruri.id_zbor%type, v_id_pilot in piloti.id_pilot%type, v_t_echipaj_piloti in out tablou_imbricat) is
+        v_echipaj echipaje_piloti%rowtype;
+    begin
+        v_echipaj.id_zbor := v_id_zbor;
+        v_echipaj.id_pilot := v_id_pilot;
+        v_t_echipaj_piloti.extend;
+        v_t_echipaj_piloti(v_t_echipaj_piloti.count) := v_echipaj;
+    end p_t_echipaj_piloti;
+    
+    
+    procedure p_inserare_echipaj_piloti(v_t_echipaj_piloti in tablou_imbricat) is
+    begin
+        for i in 1..v_t_echipaj_piloti.count loop
+            insert into echipaje_piloti
+            values(v_t_echipaj_piloti(i).id_zbor, v_t_echipaj_piloti(i).id_pilot);
+        end loop;
+    end p_inserare_echipaj_piloti;
+    
+end pachet14;
+/
+
+
+declare
+    v_zbor pachet14.zbor_record;
+    v_id_zbor zboruri.id_zbor%type;
+    v_id_ult_zbor zboruri.id_zbor%type;
+    v_pret locuri.pret%type;
+    v_nr_locuri modele_avioane.nr_locuri%type;
+    v_echipaj_piloti pachet14.tablou_imbricat;
+    
+begin
+    v_zbor.data_plecare := to_date('2023-feb-03 12:30', 'yyyy-mon-dd hh24:mi');
+    v_zbor.data_sosire := to_date('2023-feb-03 14:30', 'yyyy-mon-dd hh24:mi');
+    v_zbor.id_avion := 2;
+    v_zbor.id_aeroport_plecare := 1;
+    v_zbor.id_aeroport_sosire := 3;
+    
+    v_id_ult_zbor := pachet14.f_ultimul_zbor;
+    v_pret := pachet14.f_pret(v_id_ult_zbor);
+    v_nr_locuri := pachet14.f_nr_locuri(v_zbor.id_avion);
+    
+    v_id_zbor := pachet14.f_inserare_zbor(v_zbor);
+    
+    pachet14.p_inserare_locuri(v_id_zbor, v_pret, 1, v_nr_locuri);
+    
+    v_echipaj_piloti := pachet14.tablou_imbricat();
+    for v_cursor in pachet14.c_piloti(2) loop
+        pachet14.p_t_echipaj_piloti(v_id_zbor, v_cursor.id_pilot, v_echipaj_piloti);
+    end loop;
+    
+    pachet14.p_inserare_echipaj_piloti(v_echipaj_piloti);
+end;
+/
